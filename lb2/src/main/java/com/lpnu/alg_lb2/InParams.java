@@ -9,4 +9,3 @@ import java.math.BigDecimal;
  * @param n the second numeric input value
  */
 public record InParams(BigDecimal m, BigDecimal n) {}
-

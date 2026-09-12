@@ -8,9 +8,9 @@ import java.util.Random;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test class for validating the mathematical expressions defined in Variant 17.
- * It ensures that both formulas (z1 and z2) yield mathematically equivalent results
- * within an acceptable margin of error.
+ * Test class for validating the mathematical expressions defined in Variant 17. It ensures that
+ * both formulas (z1 and z2) yield mathematically equivalent results within an acceptable margin of
+ * error.
  */
 class ExpressionTest {
 
@@ -20,16 +20,16 @@ class ExpressionTest {
   /**
    * Tests the equality of expressions z1 and z2 for Variant 17.
    *
-   * <p>To avoid absolute value sign changes during root extraction,
-   * the generated input parameter {@code m} is strictly constrained to be greater
-   * than 2/3. Specifically, it is generated in the range [1.0, 2.0).
+   * <p>To avoid absolute value sign changes during root extraction, the generated input parameter
+   * {@code m} is strictly constrained to be greater than 2/3. Specifically, it is generated in the
+   * range [1.0, 2.0).
    *
-   * <p>Because BigDecimal calculations (such as square roots and division)
-   * introduce microscopic precision losses, the results are compared using an
-   * {@code epsilon} threshold rather than strict equality.
+   * <p>Because BigDecimal calculations (such as square roots and division) introduce microscopic
+   * precision losses, the results are compared using an {@code epsilon} threshold rather than
+   * strict equality.
    *
-   * @throws org.opentest4j.AssertionFailedError if the absolute difference
-   *                                             between z1 and z2 exceeds the defined epsilon
+   * @throws org.opentest4j.AssertionFailedError if the absolute difference between z1 and z2
+   *     exceeds the defined epsilon
    */
   @Test
   void calc_v_17_test() {
@@ -45,10 +45,12 @@ class ExpressionTest {
     BigDecimal difference = rs.z1().subtract(rs.z2()).abs();
 
     System.out.println("=== Generated Inputs ===%n m = %s%n".formatted(m));
-    System.out.println("=== Calculated Outputs ===%n z1 = %s%n z2 = %s%n".formatted(rs.z1(), rs.z2()));
+    System.out.println(
+        "=== Calculated Outputs ===%n z1 = %s%n z2 = %s%n".formatted(rs.z1(), rs.z2()));
     System.out.println("Difference: " + difference);
 
-    assertTrue(difference.compareTo(epsilon) < 0,
+    assertTrue(
+        difference.compareTo(epsilon) < 0,
         "The difference between z1 and z2 exceeds the acceptable epsilon threshold.");
   }
 }

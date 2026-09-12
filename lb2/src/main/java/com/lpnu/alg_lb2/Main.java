@@ -2,9 +2,7 @@ package com.lpnu.alg_lb2;
 
 import com.lpnu.alg_lb2.var.SevenTeen;
 
-/**
- * Entry point for the laboratory assignment application.
- */
+/** Entry point for the laboratory assignment application. */
 public final class Main {
 
   /**
