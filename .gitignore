@@ -1,5 +1,10 @@
-target/
+mvnw
+mvnw.cmd
+.mvn/
+!.mvn/wrapper/
 !.mvn/wrapper/maven-wrapper.jar
+
+target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 .kotlin
