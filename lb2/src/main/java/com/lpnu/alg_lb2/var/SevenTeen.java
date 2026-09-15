@@ -2,15 +2,16 @@ package com.lpnu.alg_lb2.var;
 
 import static java.lang.System.out;
 
-import com.lpnu.alg_lb2.InParams;
 import com.lpnu.alg_lb2.Variant;
+import com.lpnu.alg_lb2.dto.InParams;
+import com.lpnu.alg_lb2.dto.Lb2ExpressionResult;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
-public class SevenTeen implements Variant {
+public class SevenTeen implements Variant<Lb2ExpressionResult> {
 
   @Override
-  public ExpressionResult expression(InParams params) {
+  public Lb2ExpressionResult expression(InParams params) {
 
     MathContext mc = MathContext.DECIMAL128;
     var THREE = BigDecimal.valueOf(3);
@@ -34,6 +35,6 @@ public class SevenTeen implements Variant {
     // expression z2
     var z2 = params.m().sqrt(mc);
 
-    return new ExpressionResult(WRAPPER_1.divide(WRAPPER_2, mc), z2);
+    return new Lb2ExpressionResult(WRAPPER_1.divide(WRAPPER_2, mc), z2);
   }
 }

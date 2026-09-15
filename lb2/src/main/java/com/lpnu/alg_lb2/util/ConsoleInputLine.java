@@ -2,6 +2,7 @@ package com.lpnu.alg_lb2.util;
 
 import static java.lang.System.out;
 
+import com.lpnu.alg_lb2.dto.InParams;
 import java.math.BigDecimal;
 import java.util.Locale;
 import java.util.Scanner;
@@ -15,7 +16,7 @@ class ConsoleInputLine implements InputLine {
   }
 
   @Override
-  public com.lpnu.alg_lb2.InParams in(String firstMessage, String secondMessage) {
+  public InParams in(String firstMessage, String secondMessage) {
     BigDecimal first = null;
     BigDecimal second = null;
 
@@ -29,26 +30,26 @@ class ConsoleInputLine implements InputLine {
       second = readNumFromLine();
     }
 
-    return new com.lpnu.alg_lb2.InParams(first, second);
+    return new InParams(first, second);
   }
 
   @Override
-  public com.lpnu.alg_lb2.InParams in(String firstMessage) {
+  public InParams in(String firstMessage) {
     return in(firstMessage, null);
   }
 
   @Override
-  public com.lpnu.alg_lb2.InParams in() {
+  public InParams in() {
     return in("m=", "n=");
   }
 
   @Override
-  public com.lpnu.alg_lb2.InParams inM(String message) {
+  public InParams inM(String message) {
     return in(message, null);
   }
 
   @Override
-  public com.lpnu.alg_lb2.InParams inN(String message) {
+  public InParams inN(String message) {
     return in(null, message);
   }
 
