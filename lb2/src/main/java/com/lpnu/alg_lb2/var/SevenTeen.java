@@ -1,40 +1,49 @@
 package com.lpnu.alg_lb2.var;
 
-import static java.lang.System.out;
-
 import com.lpnu.alg_lb2.Variant;
 import com.lpnu.alg_lb2.dto.InParams;
 import com.lpnu.alg_lb2.dto.Lb2ExpressionResult;
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SevenTeen implements Variant<Lb2ExpressionResult> {
+
+  private static final Logger LOGGER = Logger.getLogger(SevenTeen.class.getName());
 
   @Override
   public Lb2ExpressionResult expression(InParams params) {
 
     MathContext mc = MathContext.DECIMAL128;
-    var THREE = BigDecimal.valueOf(3);
+    BigDecimal three = BigDecimal.valueOf(3);
 
-    var BLOCK_1 = THREE.multiply(params.m()).add(BigDecimal.TWO).pow(2);
-    out.println("Block 1=" + BLOCK_1);
-    var BLOCK_2 = BigDecimal.valueOf(24).multiply(params.m());
-    out.println("Block 2=" + BLOCK_2);
+    LOGGER.info(() -> "Starting LB2 calculation for m=" + params.m());
 
-    var WRAPPER_1 = BLOCK_1.subtract(BLOCK_2).sqrt(mc);
-    out.println("Wrapper 1=" + WRAPPER_1);
+    BigDecimal block1 = three.multiply(params.m()).add(BigDecimal.TWO).pow(2);
+    LOGGER.log(Level.FINE, "Formula part 1: block1 = {0}", block1);
 
-    var BLOCK_3 = params.m().sqrt(mc).multiply(THREE);
-    out.println("Block 3=" + BLOCK_3);
-    var BLOCK_4 = BigDecimal.TWO.divide(params.m().sqrt(mc), mc);
-    out.println("Block 4=" + BLOCK_4);
+    BigDecimal block2 = BigDecimal.valueOf(24).multiply(params.m());
+    LOGGER.log(Level.FINE, "Formula part 1: block2 = {0}", block2);
 
-    var WRAPPER_2 = BLOCK_3.subtract(BLOCK_4);
-    out.println("Wrapper 2=" + WRAPPER_2);
+    BigDecimal wrapper1 = block1.subtract(block2).sqrt(mc);
+    LOGGER.log(Level.INFO, "Derived z1 numerator wrapper: {0}", wrapper1);
 
-    // expression z2
-    var z2 = params.m().sqrt(mc);
+    BigDecimal sqrtM = params.m().sqrt(mc);
+    BigDecimal block3 = sqrtM.multiply(three);
+    LOGGER.log(Level.FINE, "Formula part 2: block3 = {0}", block3);
 
-    return new Lb2ExpressionResult(WRAPPER_1.divide(WRAPPER_2, mc), z2);
+    BigDecimal block4 = BigDecimal.TWO.divide(sqrtM, mc);
+    LOGGER.log(Level.FINE, "Formula part 2: block4 = {0}", block4);
+
+    BigDecimal wrapper2 = block3.subtract(block4);
+    LOGGER.log(Level.INFO, "Derived z1 denominator wrapper: {0}", wrapper2);
+
+    BigDecimal z2 = sqrtM;
+    BigDecimal z1 = wrapper1.divide(wrapper2, mc);
+
+    LOGGER.log(Level.INFO, "Final comparison values: z1={0}, z2={1}", new Object[] {z1, z2});
+
+    return new Lb2ExpressionResult(z1, z2);
   }
 }
