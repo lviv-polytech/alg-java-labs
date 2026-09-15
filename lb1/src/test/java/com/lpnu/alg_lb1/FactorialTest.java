@@ -15,4 +15,28 @@ class FactorialTest {
     long result = calculator.calculateFactorial(NUMBER);
     assertEquals(expected, result);
   }
+
+  @Test
+  void test_factorial_of_5() {
+    int number = 5;
+    long expected = 120;
+    long result = calculator.calculateFactorial(number);
+    assertEquals(expected, result);
+  }
+
+  @Test
+  void test_factorial_of_zero_returns_one() {
+    int number = 0;
+    long expected = 1;
+    long result = calculator.calculateFactorial(number);
+    assertEquals(expected, result);
+  }
+
+  @Test
+  void test_factorial_of_negative_number_returns_one() {
+    int number = -5;
+    long expected = 1;
+    long result = calculator.calculateFactorial(number);
+    assertEquals(expected, result);
+  }
 }
