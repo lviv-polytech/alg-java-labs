@@ -1,5 +1,6 @@
 package com.lpnu.alg_lb2;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.lpnu.alg_lb2.var.SevenTeen;
@@ -52,5 +53,41 @@ class ExpressionTest {
     assertTrue(
         difference.compareTo(epsilon) < 0,
         "The difference between z1 and z2 exceeds the acceptable epsilon threshold.");
+  }
+
+  @Test
+  void calc_v_17_happy_path_for_m_equal_to_2() {
+    var m = BigDecimal.valueOf(2.0);
+    var params = new InParams(m, BigDecimal.ZERO);
+
+    var rs = v_17.expression(params);
+    BigDecimal epsilon = new BigDecimal("0.0000000001");
+    BigDecimal difference = rs.z1().subtract(rs.z2()).abs();
+
+    assertTrue(
+        difference.compareTo(epsilon) < 0,
+        "The difference between z1 and z2 exceeds the acceptable epsilon threshold for a valid"
+            + " input.");
+  }
+
+  @Test
+  void calc_v_17_bad_path_for_m_less_than_two_thirds() {
+    var m = BigDecimal.valueOf(0.5);
+    var params = new InParams(m, BigDecimal.ZERO);
+
+    var rs = v_17.expression(params);
+    BigDecimal epsilon = new BigDecimal("0.0000000001");
+    BigDecimal difference = rs.z1().subtract(rs.z2()).abs();
+
+    assertTrue(
+        difference.compareTo(epsilon) > 0,
+        "For m < 2/3 the formula is not equivalent because the sign of 3m - 2 changes.");
+  }
+
+  @Test
+  void calc_v_17_bad_path_for_zero_input() {
+    var params = new InParams(BigDecimal.ZERO, BigDecimal.ZERO);
+
+    assertThrows(ArithmeticException.class, () -> v_17.expression(params));
   }
 }
