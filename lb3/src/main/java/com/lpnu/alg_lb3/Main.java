@@ -11,6 +11,7 @@ public class Main {
       var params = in.inM("m=");
       var variant = new SevenTeen();
       Lb3ExpressionResult result = variant.expression(params);
+      System.out.println("Result (y) = " + result.y());
     }
   }
 }
