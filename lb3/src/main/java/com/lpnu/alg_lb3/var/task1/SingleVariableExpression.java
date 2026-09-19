@@ -1,4 +1,4 @@
-package com.lpnu.alg_lb3.var;
+package com.lpnu.alg_lb3.var.task1;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
