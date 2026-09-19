@@ -15,6 +15,8 @@ The workspace is a multi-module project.
 *   **`lab-XX` (Task Modules):** Each assignment lives in its own isolated module.
 *   **Contract Pattern:** Define core behavior using interfaces (e.g., `EquationSolver`). Hide the implementation in package-private classes. The `Main` executable should only interact with the contract. Keep I/O logic strictly separate from Math/Business logic.
 
+*   **Three-layer architecture (new projects):** For new lab modules prefer a clear separation into UI (presentation), Service (business logic), and Infrastructure layers. UI contains CLI/Main and adapters; Service holds core algorithms and service contracts; Infrastructure provides concrete adapters (I/O, factories) and package-private implementations. Use directory conventions like `src/main/java/com/lpnu/<module>/ui`, `.../service`, `.../infra`. Keep contracts and DTOs in `common-utils` so modules depend on stable interfaces and avoid leaking implementation details.
+
 ## 3. Code Documentation (JavaDoc)
 *   **Language:** All code documentation must be written in English using standard JavaDoc format.
 *   **Conciseness vs. Detail:** Keep JavaDocs concise for standard boilerplate or utility methods.
