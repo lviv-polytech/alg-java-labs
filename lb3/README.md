@@ -19,8 +19,8 @@ flowchart TD
     B --> C{m < 4}
     C -- Yes --> D[Calculate 4*m^7 - m^5 + m^3 - 2]
     C -- No --> E{m < 7}
-    E -- Yes --> F[Calculate arctan((abs(m) + 1)/2) + 8.3*m]
-    E -- No --> G[Calculate ln(abs(2*m + e^(4*m + 1)))]
+    E -- Yes --> F["Calculate arctan((abs(m) + 1)/2) + 8.3*m"]
+    E -- No --> G["Calculate ln(abs(2*m + e^(4*m + 1)))"]
     D --> H[Add m^2 + 1]
     F --> H
     G --> H
