@@ -17,11 +17,11 @@ This laboratory work contains three separate tasks combined in a single CLI appl
 flowchart TD
     A[Start] --> B[Read m, n]
     B --> C{m < 4}
-    C -- Yes --> D[Calculate 4*m^7 - m^5 + m^3 - 2]
+    C -- Yes --> D["Calculate 4*m^7 - m^5 + m^3 - 2"]
     C -- No --> E{m < 7}
     E -- Yes --> F["Calculate arctan((abs(m) + 1)/2) + 8.3*m"]
     E -- No --> G["Calculate ln(abs(2*m + e^(4*m + 1)))"]
-    D --> H[Add m^2 + 1]
+    D --> H["Add m^2 + 1"]
     F --> H
     G --> H
     H --> I[Print y]
@@ -53,11 +53,11 @@ stateDiagram-v2
 ```mermaid
 flowchart TD
     A[Start] --> B[Read a, b, c, x]
-    B --> C{(x + 10 < 0) and (b != 0)}
-    C -- Yes --> D[Return a*x^2 - c*x + b]
-    C -- No --> E{(x + 10 > 0) and (b == 0)}
-    E -- Yes --> F[Return (x - a)/(x - c)]
-    E -- No --> G[Return -x/(a - c)]
+    B --> C{"(x + 10 < 0) and (b != 0)"}
+    C -- Yes --> D["Return a*x^2 - c*x + b"]
+    C -- No --> E{"(x + 10 > 0) and (b == 0)"}
+    E -- Yes --> F["Return (x - a)/(x - c)"]
+    E -- No --> G["Return -x/(a - c)"]
     D --> H[Compare short and full branch results]
     F --> H
     G --> H
@@ -85,13 +85,13 @@ stateDiagram-v2
 ```mermaid
 flowchart TD
     A[Start] --> B[Read x, R]
-    B --> C{x <= -1 - R}
+    B --> C{"x <= -1 - R"}
     C -- Yes --> D[Return 1]
-    C -- No --> E{x <= -1}
-    E -- Yes --> F[Return -sqrt(R^2 - (x + 1)^2)]
-    E -- No --> G{x <= 2}
-    G -- Yes --> H[Return -R]
-    G -- No --> I[Return R*(x - 4)/2]
+    C -- No --> E{"x <= -1"}
+    E -- Yes --> F["Return -sqrt(R^2 - (x + 1)^2)"]
+    E -- No --> G{"x <= 2"}
+    G -- Yes --> H["Return -R"]
+    G -- No --> I["Return R*(x - 4)/2"]
     D --> J[Print y]
     F --> J
     H --> J
@@ -124,20 +124,11 @@ Input values: `m`, `n`
 
 The function is built as:
 
-$$
-Y = m^2 + 1 + \Phi(m)
-$$
+$$Y = m^2 + 1 + \Phi(m)$$
 
 where the branch logic is:
 
-$$
-\Phi(m) =
-\begin{cases}
-4m^7 - m^5 + m^3 - 2, & m < 4 \\
-\arctan\left(\frac{|m| + 1}{2}\right) + 8.3m, & 4 \le m < 7 \\
-\ln\left(|2m + e^{4m + 1}|\right), & m \ge 7
-\end{cases}
-$$
+$$\Phi(m) = \begin{cases} 4m^7 - m^5 + m^3 - 2, & m < 4 \\ \arctan\left(\frac{\vert{}m\vert{} + 1}{2}\right) + 8.3m, & 4 \le m < 7 \\ \ln\left(\vert{}2m + e^{4m + 1}\vert{}\right), & m \ge 7 \end{cases}$$
 
 Implementation: `SingleVariableExpression` in package `com.lpnu.alg_lb3.var.task1`.
 
@@ -147,14 +138,7 @@ Input values: `a`, `b`, `c`, `x`
 
 The function is implemented in both short and full conditional forms, and the two results are checked for equality:
 
-$$
-F(x) =
-\begin{cases}
-ax^2 - cx + b, & x + 10 < 0 \ \text{and } b \ne 0 \\
-\dfrac{x - a}{x - c}, & x + 10 > 0 \ \text{and } b = 0 \\
--\dfrac{x}{a - c}, & \text{otherwise}
-\end{cases}
-$$
+$$F(x) = \begin{cases} ax^2 - cx + b, & x + 10 < 0 \ \text{and } b \ne 0 \\ \dfrac{x - a}{x - c}, & x + 10 > 0 \ \text{and } b = 0 \\ -\dfrac{x}{a - c}, & \text{otherwise} \end{cases}$$
 
 Implementation: `PiecewiseExpression`, `ShortFormExpression`, `FullFormExpression`, `PiecewiseFunction`, and `SevenTeen` in package `com.lpnu.alg_lb3.var.task2`.
 
@@ -164,15 +148,7 @@ Input values: `x`, `R`
 
 The graph is divided into the following branches:
 
-$$
- y =
-\begin{cases}
-1, & x \le -1 - R \\
--\sqrt{R^2 - (x + 1)^2}, & -1 - R < x \le -1 \\
--R, & -1 < x \le 2 \\
-\dfrac{R(x - 4)}{2}, & x > 2
-\end{cases}
-$$
+$$y = \begin{cases} 1, & x \le -1 - R \\ -\sqrt{R^2 - (x + 1)^2}, & -1 - R < x \le -1 \\ -R, & -1 < x \le 2 \\ \dfrac{R(x - 4)}{2}, & x > 2 \end{cases}$$
 
 Implementation: `GraphFunctionCalculator` in package `com.lpnu.alg_lb3.var.task3`.
 
@@ -209,9 +185,9 @@ classDiagram
 
 ## How the project is implemented
 
-- `Main.java` reads all required input values for all three tasks
-- each task has its own dedicated logic module
-- Task 3 adds clear labels in the output: `Task 1`, `Task 2`, `Task 3`
-- branching is implemented using the full `if / else if / else` structure
+* `Main.java` reads all required input values for all three tasks
+* each task has its own dedicated logic module
+* Task 3 adds clear labels in the output: `Task 1`, `Task 2`, `Task 3`
+* branching is implemented using the full `if / else if / else` structure
 
 This is Laboratory Work 3, Variant 17, implemented in a structured OOP style with clear responsibility separation between classes.
