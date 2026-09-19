@@ -139,6 +139,57 @@ This laboratory work demonstrates:
 - implementing formula-based logic in a modular structure,
 - validating mathematical equivalence in unit tests.
 
+## Diagrams
+
+### Flowchart (algorithm)
+
+```mermaid
+flowchart TD
+    Start["Start"] --> ReadM["Read m"]
+    ReadM --> ComputeBlocks["Compute BLOCK_1, BLOCK_2, WRAPPER_1, BLOCK_3, BLOCK_4, WRAPPER_2"]
+    ComputeBlocks --> ComputeZs["z1 = WRAPPER_1/WRAPPER_2; z2 = sqrt(m)"]
+    ComputeZs --> Compare["Compare z1 and z2"]
+    Compare -- Equal --> PrintOK["Print equal result"]
+    Compare -- NotEqual --> PrintMismatch["Print mismatch / throw"]
+    PrintOK --> End["End"]
+    PrintMismatch --> End
+```
+
+### Activity (state) diagram
+
+```mermaid
+stateDiagram-v2
+    [*] --> WaitingInput
+    WaitingInput --> Calculating : m provided
+    Calculating --> Comparing
+    Comparing --> Output
+    Output --> [*]
+```
+
+### Structural Diagram (classDiagram)
+
+```mermaid
+classDiagram
+    class Variant <<interface>> {
+      +R expression(InParams params)
+    }
+    class SevenTeen {
+      +R expression(InParams params)
+      +BigDecimal evaluateSingleVariable(BigDecimal m, BigDecimal n)
+    }
+    class InParams {
+      +BigDecimal m()
+      +BigDecimal n()
+    }
+    class ExpressionResult {
+      +BigDecimal z1()
+      +BigDecimal z2()
+    }
+    Variant <|.. SevenTeen
+    SevenTeen --> InParams
+    SevenTeen --> ExpressionResult
+```
+
 ## License
 
 This is an academic laboratory assignment.

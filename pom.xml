@@ -12,8 +12,10 @@
   <name>Algorithm Lab 1</name>
   <description>Algorithm Laboratory Work 1, Task 1.3</description>
   <modules>
+    <module>common-utils</module>
     <module>lb1</module>
     <module>lb2</module>
+    <module>lb3</module>
   </modules>
 
   <properties>
@@ -39,14 +41,6 @@
 
   <build>
     <plugins>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
-        <version>3.6.3</version>
-        <configuration>
-          <mainClass>com.lpnu.alg_lb1.Main</mainClass>
-        </configuration>
-      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
