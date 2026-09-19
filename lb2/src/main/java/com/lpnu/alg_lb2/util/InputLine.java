@@ -1,6 +1,6 @@
 package com.lpnu.alg_lb2.util;
 
-import com.lpnu.alg_lb2.dto.InParams;
+import com.lpnu.common.dto.InParams;
 
 /** Contract for reading values from a console-like input source. */
 public interface InputLine extends AutoCloseable {

@@ -1,6 +1,7 @@
 package com.lpnu.alg_lb2;
 
 import com.lpnu.alg_lb2.dto.Lb2ExpressionResult;
+import com.lpnu.common.dto.InParams;
 import com.lpnu.alg_lb2.util.InputLineFactory;
 import com.lpnu.alg_lb2.var.SevenTeen;
 

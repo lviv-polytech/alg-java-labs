@@ -2,7 +2,7 @@ package com.lpnu.alg_lb2.util;
 
 import static java.lang.System.out;
 
-import com.lpnu.alg_lb2.dto.InParams;
+import com.lpnu.common.dto.InParams;
 import java.math.BigDecimal;
 import java.util.Locale;
 import java.util.Scanner;

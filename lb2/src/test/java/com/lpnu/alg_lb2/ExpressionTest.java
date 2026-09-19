@@ -3,7 +3,7 @@ package com.lpnu.alg_lb2;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.lpnu.alg_lb2.dto.InParams;
+import com.lpnu.common.dto.InParams;
 import com.lpnu.alg_lb2.dto.Lb2ExpressionResult;
 import com.lpnu.alg_lb2.var.SevenTeen;
 import java.math.BigDecimal;

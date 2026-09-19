@@ -1,6 +1,6 @@
 package com.lpnu.alg_lb3.util;
 
-import com.lpnu.alg_lb2.dto.ExpressionResult;
+import com.lpnu.common.dto.ExpressionResult;
 import java.math.BigDecimal;
 
 /** LB3-specific implementation of the common result contract. */

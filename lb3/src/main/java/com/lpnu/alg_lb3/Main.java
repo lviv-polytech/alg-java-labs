@@ -2,7 +2,7 @@ package com.lpnu.alg_lb3;
 
 import static java.lang.System.out;
 
-import com.lpnu.alg_lb2.dto.InParams;
+import com.lpnu.common.dto.InParams;
 import com.lpnu.alg_lb3.util.Lb3ExpressionResult;
 import com.lpnu.alg_lb3.var.task2.SevenTeen;
 import com.lpnu.alg_lb3.var.task3.GraphFunctionCalculator;
