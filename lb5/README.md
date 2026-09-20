@@ -81,3 +81,7 @@ $$S = \sum_{j=2}^{N} \frac{j(N - j)}{j^2 + (N - j)^2}$$
 - Recursion evaluating through tree **Ascent** (Forward Return) using ascending and descending steps.
 - Standard benchmark loop for delta equality checking.
 
+
+**Task 5.5: Geometric Progression and Recursion Depth Tracks**
+Determines sequences in Geometric progressions avoiding explicit cyclic iterators. Focuses on dynamically plotting JVM call-stack limitations (level and depth tracks tracking parameters via state-holding Context mimicking C++ Reference parameters).
+

@@ -5,6 +5,7 @@ import com.lpnu.lb5.ui.task1.Task1Runner;
 import com.lpnu.lb5.ui.task2.Task2Runner;
 import com.lpnu.lb5.ui.task3.Task3Runner;
 import com.lpnu.lb5.ui.task4.Task4Runner;
+import com.lpnu.lb5.ui.task5.Task5Runner;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,6 +16,7 @@ public class Main {
         System.out.println("2. Task 2 (Taylor Series Modular Functions)");
         System.out.println("3. Task 3 (Piecewise Functions and Recurrent Loops)");
         System.out.println("4. Task 4 (Summation using Recursion 5 ways)");
+        System.out.println("5. Task 5 (Geometric Progression Recursion Depth)");
         System.out.println("0. Exit");
         
         while (true) {
@@ -36,6 +38,9 @@ public class Main {
                 break;
             } else if (choice.equals("4")) {
                 new Task4Runner().run();
+                break;
+            } else if (choice.equals("5")) {
+                new Task5Runner().run();
                 break;
             } else {
                 System.out.println("Invalid selection.");
