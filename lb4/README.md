@@ -110,3 +110,10 @@ Tabulates a function that depends on the argument $x$ and three parameters $a, b
 $$F(x, a, b, c) = \begin{cases} a x^3 - (x+b), & \text{if } x+10 < 0 \text{ and } b = 0 \\ \frac{x-a}{x-c}, & \text{if } x+10 > 0 \text{ and } b = 0 \\ \frac{x-c}{a-c}, & \text{otherwise} \end{cases}$$
 The application evaluates complex logical composite statements for branch selection inside loops and securely outputs formatted ASCII table checking edge cases (e.g. division by zero).
 
+
+**Task 4: Graphic Function Tabulation**
+Tabulates a function derived mathematically from a visual chart and radius R.
+The model uses `if/else if` branch blocks over four distinct sub-domains (horizontal line, circle arc, bottom line, sloped continuous line).
+$$y = \begin{cases}  1, & x \le -1-R \\  -\sqrt{R^2 - (x+1)^2}, & -1-R < x \le -1 \\  -R, & -1 < x \le 2 \\  \frac{R}{2}(x - 4), & x > 2  \end{cases}$$
+Demonstrates piecewise mapping from geometric analysis directly to algorithms.
+
