@@ -72,3 +72,12 @@ Refactors the mathematical infinite series logic strictly into disjoint helper r
 **Task 5.3: Piecewise Functions and Recurrent Loops**
 Aggregates independent math execution patterns (piecewise functional branching and optimized recurrent loop accumulation) inside one overarching layout. Calculates an outer formula composed of dynamic $h(x)$ resolutions, which internally determines its execution branch based on module bounds $|x| \ge 1$ vs $|x| < 1$.
 
+
+**Task 5.4: Summation using Recursion 5 ways**
+Models iterative evaluation techniques fundamentally through call stack hierarchies across five contrasting flows.
+Equation:
+$$S = \sum_{j=2}^{N} \frac{j(N - j)}{j^2 + (N - j)^2}$$
+- Recursion evaluating through tree **Descent** (Forward Accumulation) using ascending and descending steps.
+- Recursion evaluating through tree **Ascent** (Forward Return) using ascending and descending steps.
+- Standard benchmark loop for delta equality checking.
+
