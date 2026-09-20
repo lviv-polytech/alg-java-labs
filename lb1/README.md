@@ -106,6 +106,49 @@ long result = calculator.calculateFactorial(10);
 System.out.println(result);  // Output: 3628800
 ```
 
+## Diagrams
+
+### Flowchart (algorithm)
+
+```mermaid
+flowchart TD
+    Start["Start"] --> Read["Read n"]
+    Read --> Check{"n == 0?"}
+    Check -- Yes --> Return1["Return 1"]
+    Check -- No --> Loop["Iterative multiply i=1..n"]
+    Loop --> ReturnResult["Return factorial"]
+    Return1 --> End["End"]
+    ReturnResult --> End
+```
+
+### Activity (state) diagram
+
+```mermaid
+stateDiagram-v2
+    [*] --> WaitingForInput
+    WaitingForInput --> Computing : input received
+    Computing --> Returning
+    Returning --> [*]
+```
+
+### Structural Diagram (classDiagram)
+
+```mermaid
+classDiagram
+    class FactorialCalculator {
+      <<interface>>
+      +long calculateFactorial(int number)
+    }
+    class FactorialCalculatorImpl {
+      +long calculateFactorial(int number)
+    }
+    class Main {
+      +static void main(String[] args)
+    }
+    FactorialCalculator <|.. FactorialCalculatorImpl
+    Main --> FactorialCalculator
+```
+
 ## License
 
 This is an academic laboratory assignment.

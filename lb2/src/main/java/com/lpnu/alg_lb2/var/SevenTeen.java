@@ -1,7 +1,7 @@
 package com.lpnu.alg_lb2.var;
 
-import com.lpnu.alg_lb2.Variant;
-import com.lpnu.alg_lb2.dto.InParams;
+import com.lpnu.common.contract.Variant;
+import com.lpnu.common.dto.InParams;
 import com.lpnu.alg_lb2.dto.Lb2ExpressionResult;
 import java.math.BigDecimal;
 import java.math.MathContext;

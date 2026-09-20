@@ -1,5 +1,6 @@
 package com.lpnu.alg_lb2.dto;
 
+import com.lpnu.common.dto.ExpressionResult;
 import java.math.BigDecimal;
 
 /** LB2-specific implementation of the general result contract. */
