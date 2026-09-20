@@ -57,3 +57,10 @@ classDiagram
     MathServiceTest --> MathService : creates & tests
     MathServiceTest --> Assertions : verifies state with
 ```
+**Task 5.1: Custom Math Functions**
+Demonstrates modular decomposition mapping a mathematical component $h(x, y, z)$ into an isolable programmatic function block to resolve composite expressions.
+Formula:
+$$\frac{h(a,b,1) + h(1,a,b)}{1 + h(a^2 + b^2, 1, 0)}$$
+where
+$$h(x, y, z) = \frac{x + y + z}{x^2 + y^2 + z^2}$$
+
