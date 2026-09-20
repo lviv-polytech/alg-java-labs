@@ -47,3 +47,4 @@ Formulate a separate paragraph under the heading `### Висновок`. This pa
 - Terminology must be precise; sentences should be concise but not fragmented.
 - Describe images only if they directly relate to the task.
 - **Mathematical Formulas**: When formatting LaTeX math expressions using `$$`, they MUST be placed on a new line. You MUST ensure there is exactly one empty blank line before the opening `$$` and one empty blank line after the closing `$$`.
+- The report should not include technical implementation details regarding how the project was executed, as it adheres to a unified standard: it describes only the work itself, the algorithm, the principle, and the problem-solving methods.

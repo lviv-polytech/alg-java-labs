@@ -1,4 +1,4 @@
-package com.lpnu.lb4.service;
+package com.lpnu.lb4.service.task1;
 
 /**
  * Contract for a mathematical calculator that computes the finite sum of a trigonometric series.

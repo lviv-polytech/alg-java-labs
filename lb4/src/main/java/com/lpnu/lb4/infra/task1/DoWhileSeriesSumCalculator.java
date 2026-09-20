@@ -1,11 +1,11 @@
-package com.lpnu.lb4.infra;
+package com.lpnu.lb4.infra.task1;
 
-import com.lpnu.lb4.service.SeriesSumCalculator;
+import com.lpnu.lb4.service.task1.SeriesSumCalculator;
 
 /**
- * Computes the trigonometric series sum using a standard while-loop construct.
+ * Computes the trigonometric series sum using a do-while loop construct.
  */
-class WhileSeriesSumCalculator implements SeriesSumCalculator {
+class DoWhileSeriesSumCalculator implements SeriesSumCalculator {
     @Override
     public double calculate(int n) {
         if (n < 1) {
@@ -13,15 +13,15 @@ class WhileSeriesSumCalculator implements SeriesSumCalculator {
         }
         double sum = 0.0;
         int i = 1;
-        while (i <= n) {
+        do {
             sum += Math.sin(i) / (1 + Math.cos(i));
             i++;
-        }
+        } while (i <= n);
         return sum;
     }
 
     @Override
     public String getLoopType() {
-        return "while(...) { ... }";
+        return "do { ... } while(...)";
     }
 }

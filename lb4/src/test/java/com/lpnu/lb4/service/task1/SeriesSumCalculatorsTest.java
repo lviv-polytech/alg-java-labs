@@ -1,6 +1,6 @@
-package com.lpnu.lb4.service;
+package com.lpnu.lb4.service.task1;
 
-import com.lpnu.lb4.infra.CalculatorFactory;
+import com.lpnu.lb4.infra.task1.CalculatorFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

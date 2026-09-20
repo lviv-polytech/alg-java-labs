@@ -1,47 +1,37 @@
 package com.lpnu.lb4.ui;
 
 import com.lpnu.common.SafeScanner;
-import com.lpnu.lb4.infra.CalculatorFactory;
-import com.lpnu.lb4.service.SeriesSumCalculator;
-
-import java.util.List;
+import com.lpnu.lb4.ui.task1.Task1Runner;
+import com.lpnu.lb4.ui.task2.Task2Runner;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("--- Lab 4: Trigonometric Series Sum (4 loop types) ---");
-        
         SafeScanner scanner = new SafeScanner();
-        int n = 0;
+        
+        System.out.println("====== Lab 4 ======");
+        System.out.println("1. Task 1 (Trig Series Sum loop evaluation)");
+        System.out.println("2. Task 2 (Piecewise Function Tabulation)");
+        System.out.println("0. Exit");
         
         while (true) {
-            System.out.print("Enter upper bound N (positive integer >= 1): ");
-            String line = scanner.nextLineOrNull();
-            if (line == null) {
-                System.out.println("\nApplication terminated.");
-                return;
-            }
-            try {
-                n = Integer.parseInt(line.trim());
-                if (n < 1) {
-                    System.out.println("Error: N must be >= 1. Try again.");
-                    continue;
-                }
+            System.out.print("> Select task: ");
+            String choice = scanner.nextLineOrNull();
+            if (choice == null || choice.equals("0")) {
+                System.out.println("Exiting...");
                 break;
-            } catch (NumberFormatException e) {
-                System.out.println("Error: Invalid number format. Try again.");
+            }
+            
+            if (choice.equals("1")) {
+                new Task1Runner().run();
+                break;
+            } else if (choice.equals("2")) {
+                new Task2Runner().run();
+                break;
+            } else {
+                System.out.println("Invalid selection.");
             }
         }
         
         scanner.close();
-        
-        List<SeriesSumCalculator> calculators = CalculatorFactory.getAllCalculators();
-        
-        System.out.println("\nResults for N = " + n + ":");
-        for (SeriesSumCalculator calc : calculators) {
-            double result = calc.calculate(n);
-            System.out.printf("[%-25s] S = %.6f%n", calc.getLoopType(), result);
-        }
-        
-        System.out.println("\nAll 4 results above should be exactly identical.");
     }
 }

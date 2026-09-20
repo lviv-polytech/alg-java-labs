@@ -1,6 +1,6 @@
-package com.lpnu.lb4.infra;
+package com.lpnu.lb4.infra.task1;
 
-import com.lpnu.lb4.service.SeriesSumCalculator;
+import com.lpnu.lb4.service.task1.SeriesSumCalculator;
 import java.util.List;
 import java.util.Arrays;
 
