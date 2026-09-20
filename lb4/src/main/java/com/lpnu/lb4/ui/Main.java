@@ -16,7 +16,7 @@ public class Main {
         System.out.println("2. Task 2 (Piecewise Function Tabulation)");
         System.out.println("3. Task 3 (Parametric Function Tabulation)");
         System.out.println("4. Task 4 (Graphic Function Tabulation)");
-        System.out.println("5. Task 5 (Shape Hit Testing)");
+        System.out.println("5. Task 5 (Shape Hit Testing)"`n        System.out.println("6. Task 6 (Nested Loops Math Series)"););
         System.out.println("0. Exit");
         
         while (true) {

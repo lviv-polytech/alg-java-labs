@@ -125,3 +125,9 @@ Uses logically complex expressions to determine if a point (x, y) resides within
 
 The feature integrates pseudo-random number generator to execute simulation loops validating the boundaries against Monte Carlo-like coordinate sets.
 
+
+**Task 6: Nested Loops Math Series**
+Computes the dynamic complex mathematics series strictly evaluated by double nested loops. 
+$$S = \sum_{k=1}^{20} \sqrt{\sin^2 k + \left| \sum_{i=1}^{k} \cos(i + k) \right| }$$
+Demonstrates encapsulation of loops across `while`, `do-while`, incrementing `for`, and decrementing `for` without precision loss.
+
