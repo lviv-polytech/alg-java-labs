@@ -14,3 +14,6 @@ mvn clean install -pl lb7
 # Run Main
 java -cp common-utils\target\classes;lb7\target\classes com.lpnu.lb7.ui.Main
 ```
+**Task 7.2: Adjacent Row Extremes Swapping**
+Pairs matrix subsets locally isolating extreme nodes per iteration. Identifies lowest entities across math-odd sub-arrays mutating states against highest entities inside math-even matrices maintaining isolated data synchronization cleanly.
+
