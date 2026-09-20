@@ -23,3 +23,7 @@ Determines extreme conditional members (maximum values among strictly even parit
 **Task 6.3: Generics/Templates Console Inputs**
 Polymorphic mapping overriding typed static matrix builders into unconstrained multi-format receivers. Emulates strictly-typed mechanisms via functional parsing components injected into generalized flow graphs.
 
+
+**Task 6.4: Dynamic Array Structuring: Analytics & Stable Sort**
+Establishes complex queries assessing target positional properties (i.e., mathematical aggregate evaluation posterior to specific targets searched transversally via backward stepping) along with stable state permutations without order disruption. Utilizes Java GC behaviors mapped analogously to explicit Native heap control (new/delete).
+
