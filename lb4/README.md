@@ -117,3 +117,11 @@ The model uses `if/else if` branch blocks over four distinct sub-domains (horizo
 $$y = \begin{cases}  1, & x \le -1-R \\  -\sqrt{R^2 - (x+1)^2}, & -1-R < x \le -1 \\  -R, & -1 < x \le 2 \\  \frac{R}{2}(x - 4), & x > 2  \end{cases}$$
 Demonstrates piecewise mapping from geometric analysis directly to algorithms.
 
+
+**Task 5: Shape Hit Testing**
+Uses logically complex expressions to determine if a point (x, y) resides within a planar geometric figure composed of two quarter-circles located in Quadrants II and IV.
+* **Area 1:** $x \le 0 \land y \ge 0 \land (x + R)^2 + y^2 \le R^2$
+* **Area 2:** $x \ge 0 \land y \le 0 \land (x - R)^2 + y^2 \le R^2$
+
+The feature integrates pseudo-random number generator to execute simulation loops validating the boundaries against Monte Carlo-like coordinate sets.
+
