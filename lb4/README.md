@@ -131,3 +131,10 @@ Computes the dynamic complex mathematics series strictly evaluated by double nes
 $$S = \sum_{k=1}^{20} \sqrt{\sin^2 k + \left| \sum_{i=1}^{k} \cos(i + k) \right| }$$
 Demonstrates encapsulation of loops across `while`, `do-while`, incrementing `for`, and decrementing `for` without precision loss.
 
+
+**Task 7: Taylor Series Recurrent Tabulation**
+Tabulates the Natural Logarithm mathematically using infinite Taylor series iterations up to a defined precision `eps`.
+$$\ln x = \sum_{n=0}^{\infty} \frac{(x-1)^{n+1}}{(n+1) \cdot x^{n+1}}$$
+To avoid `pow` overloads, the component implements memory-efficient recurrence relations where $a_n = a_{n-1} \cdot \frac{x-1}{x} \cdot \frac{n}{n+1}$.
+Outputs an ASCII diagnostic table comparing algorithm bounds against native `Math.log`.
+
