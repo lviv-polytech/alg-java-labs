@@ -17,6 +17,7 @@
     <module>lb2</module>
     <module>lb3</module>
     <module>lb4</module>
+    <module>lb5</module>
   </modules>
 
   <properties>
