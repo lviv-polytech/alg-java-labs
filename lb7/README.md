@@ -17,3 +17,7 @@ java -cp common-utils\target\classes;lb7\target\classes com.lpnu.lb7.ui.Main
 **Task 7.2: Adjacent Row Extremes Swapping**
 Pairs matrix subsets locally isolating extreme nodes per iteration. Identifies lowest entities across math-odd sub-arrays mutating states against highest entities inside math-even matrices maintaining isolated data synchronization cleanly.
 
+
+**Task 7.3: Dynamic Arrays & Max Diagonal Build**
+Dynamically allocates 2D target planes targeting pointer-to-pointer layouts `double**`. Executes targeted analytic transversals searching for absolute bounding rules (rows stripped of positive values) while executing localized restructuring. Replaces internal coordinates so global maximum elements migrate descending into the primary diagonal axis. Handles isolated memory clearing replicating unmanaged environments (`delete[]`).
+
