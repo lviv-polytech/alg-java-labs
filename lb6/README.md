@@ -16,3 +16,6 @@ mvn clean install -pl lb6
 # Run Main
 java -cp common-utils\target\classes;lb6\target\classes com.lpnu.lb6.ui.Main
 ```
+**Task 6.2: Max Even Element Index**
+Determines extreme conditional members (maximum values among strictly even parity constraints) within scalar 1D sets, resolving empty-condition fallbacks (returning `-1` for arrays completely lacking even entities). Replicated across identical iterative bounds and recursive node-chain scans.
+
