@@ -105,3 +105,8 @@ classDiagram
     FunctionTabulator --> TabulationPoint : returns
     PiecewiseFunctionTabulator --> TabulationPoint : instantiates
 ```
+**Task 3: Parametric Function Tabulation**
+Tabulates a function that depends on the argument $x$ and three parameters $a, b, c$.
+$$F(x, a, b, c) = \begin{cases} a x^3 - (x+b), & \text{if } x+10 < 0 \text{ and } b = 0 \\ \frac{x-a}{x-c}, & \text{if } x+10 > 0 \text{ and } b = 0 \\ \frac{x-c}{a-c}, & \text{otherwise} \end{cases}$$
+The application evaluates complex logical composite statements for branch selection inside loops and securely outputs formatted ASCII table checking edge cases (e.g. division by zero).
+
