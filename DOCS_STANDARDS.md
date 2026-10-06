@@ -7,11 +7,6 @@ Your task is to generate the final execution report for a lab assignment after t
 - You must use the exact Ukrainian headings and labels specified below.
 - Exception: English is acceptable inside the Mermaid.js diagrams.
 
-## File Storage (CRITICAL)
-- The report must not clutter the main project repository.
-- Save the generated MDX file (e.g., `lab-XX-report.mdx`) EXCLUSIVELY in the hidden directory `.local/reports/` at the project root.
-- If this directory does not exist, create it. Ensure that the `.local/` directory is added to the project's `.gitignore`.
-
 ## Inputs Expected
 - **Task**: What needs to be done or described (mathematical model, conditions, inputs/outputs).
 - **Material**: The provided code, answers, steps taken, notes, images, etc.

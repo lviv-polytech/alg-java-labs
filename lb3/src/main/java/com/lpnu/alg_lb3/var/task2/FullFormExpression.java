@@ -9,10 +9,11 @@ public class FullFormExpression extends PiecewiseExpression {
   public BigDecimal evaluate(BigDecimal a, BigDecimal b, BigDecimal c, BigDecimal x) {
     if (x.add(BigDecimal.TEN).compareTo(BigDecimal.ZERO) < 0 && b.compareTo(BigDecimal.ZERO) != 0) {
       return calculateFirstCase(a, b, c, x);
-    }
-    if (x.add(BigDecimal.TEN).compareTo(BigDecimal.ZERO) > 0 && b.compareTo(BigDecimal.ZERO) == 0) {
+    } else if (x.add(BigDecimal.TEN).compareTo(BigDecimal.ZERO) > 0
+        && b.compareTo(BigDecimal.ZERO) == 0) {
       return calculateSecondCase(a, c, x);
+    } else {
+      return calculateThirdCase(a, c, x);
     }
-    return calculateThirdCase(a, c, x);
   }
 }
