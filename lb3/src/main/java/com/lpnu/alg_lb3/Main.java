@@ -2,10 +2,11 @@ package com.lpnu.alg_lb3;
 
 import static java.lang.System.out;
 
-import com.lpnu.common.dto.InParams;
 import com.lpnu.alg_lb3.util.Lb3ExpressionResult;
 import com.lpnu.alg_lb3.var.task2.SevenTeen;
 import com.lpnu.alg_lb3.var.task3.GraphFunctionCalculator;
+import com.lpnu.alg_lb3.var.task4.PointRegionChecker;
+import com.lpnu.common.dto.InParams;
 import java.math.BigDecimal;
 import java.util.Locale;
 import java.util.Scanner;
@@ -56,6 +57,28 @@ public class Main {
       double task3Y = GraphFunctionCalculator.calculate(task3X, task3R);
       out.println("Task 3 | y = " + task3Y);
       out.println("Task 3 | input variables: x = " + task3X + ", R = " + task3R);
+
+      out.println();
+      out.println("Task 4: point region checker");
+      out.print("Task 4 | x = ");
+      double task4X = scanner.nextDouble();
+      out.print("Task 4 | y = ");
+      double task4Y = scanner.nextDouble();
+      out.print("Task 4 | R = ");
+      double task4R = scanner.nextDouble();
+
+      PointRegionChecker checker = PointRegionChecker.create();
+      boolean isInside = checker.isInside(task4X, task4Y, task4R);
+      out.println(
+          "Task 4 | Point ("
+              + task4X
+              + ", "
+              + task4Y
+              + ") is "
+              + (isInside ? "INSIDE" : "OUTSIDE")
+              + " the shaded region (R = "
+              + task4R
+              + ")");
     }
   }
 }

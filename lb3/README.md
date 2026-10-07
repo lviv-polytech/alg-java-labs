@@ -1,12 +1,13 @@
 # LB3 — Variant 17
 
-This laboratory work contains three separate tasks combined in a single CLI application launched from `Main`. Each task is implemented in a dedicated package to make the structure clearer and easier to maintain.
+This laboratory work contains four separate tasks combined in a single CLI application launched from `Main`. Each task is implemented in a dedicated package to make the structure clearer and easier to maintain.
 
 ## Project structure
 
 - `var/task1` — Task 1: single-variable function evaluation
 - `var/task2` — Task 2: piecewise function `F(x)`
 - `var/task3` — Task 3: graph-defined function `y = f(x)`
+- `var/task4` — Task 4: point region checker (determines if a point lies within a shaded region)
 - `Main.java` — entry point that reads inputs for all tasks and prints labeled results
 
 ## Architecture diagrams
@@ -152,6 +153,73 @@ $$y = \begin{cases} 1, & x \le -1 - R \\ -\sqrt{R^2 - (x + 1)^2}, & -1 - R < x \
 
 Implementation: `GraphFunctionCalculator` in package `com.lpnu.alg_lb3.var.task3`.
 
+## Task 4 — Point Region Checker
+
+Input values: `x`, `y`, `R`
+
+Given a point with coordinates `(x, y)` and a radius parameter `R`, determine whether the point lies within the shaded region composed of two quarter-circle segments:
+
+- **Region A (Quadrant II, top-left):** A quarter-circle centered at `(-R, 0)` with radius `R`. Constraints:
+  - `-R ≤ x ≤ 0`
+  - `0 ≤ y ≤ R`
+  - `(x + R)² + y² ≤ R²`
+
+- **Region B (Quadrant IV, bottom-right):** A quarter-circle centered at `(R, 0)` with radius `R`. Constraints:
+  - `0 ≤ x ≤ R`
+  - `-R ≤ y ≤ 0`
+  - `(x - R)² + y² ≤ R²`
+
+Implementation: `PointRegionChecker` interface and `PointRegionCheckerImpl` (package-private) in package `com.lpnu.alg_lb3.var.task4`.
+
+The result is printed as a text message indicating whether the point is **INSIDE** or **OUTSIDE** the shaded region.
+
+### Task 4 — flowchart
+
+```mermaid
+flowchart TD
+    A[Start] --> B[Read x, y, R]
+    B --> C{R > 0 and finite?}
+    C -- No --> D[Throw IllegalArgumentException]
+    C -- Yes --> E{x or y is NaN/Infinite?}
+    E -- Yes --> F[Return false]
+    E -- No --> G{Check Quadrant II}
+    G --> H["(-R ≤ x ≤ 0) and (0 ≤ y ≤ R)"]
+    H --> I{"(x + R)² + y² ≤ R²"}
+    I -- Yes --> J[Return true]
+    I -- No --> K{Check Quadrant IV}
+    K --> L["(0 ≤ x ≤ R) and (-R ≤ y ≤ 0)"]
+    L --> M{"(x - R)² + y² ≤ R²"}
+    M -- Yes --> N[Return true]
+    M -- No --> O[Return false]
+    J --> P[Print result]
+    N --> P
+    F --> P
+    O --> P
+    P --> Q[End]
+    D --> Q
+```
+
+### Task 4 — UML activity diagram
+
+```mermaid
+stateDiagram-v2
+    [*] --> ReadInput
+    ReadInput --> ValidateRadius
+    ValidateRadius --> CheckFiniteCoordinates: valid
+    ValidateRadius --> ThrowException: invalid
+    ThrowException --> [*]
+    CheckFiniteCoordinates --> CheckQuadrantII: finite
+    CheckFiniteCoordinates --> ReturnFalse: not finite
+    CheckQuadrantII --> InQuadrantII: inside
+    CheckQuadrantII --> CheckQuadrantIV: not inside
+    InQuadrantII --> ReturnTrue
+    CheckQuadrantIV --> InQuadrantIV: inside
+    CheckQuadrantIV --> ReturnFalse: not inside
+    InQuadrantIV --> ReturnTrue
+    ReturnTrue --> [*]
+    ReturnFalse --> [*]
+```
+
 ### Structural Diagram (classDiagram)
 
 ```mermaid
@@ -173,21 +241,37 @@ classDiagram
     class GraphFunctionCalculator {
       +BigDecimal calculate(BigDecimal x, BigDecimal R)
     }
+    class PointRegionChecker {
+      <<interface>>
+      +boolean isInside(double x, double y, double R)
+      +static PointRegionChecker create()
+    }
+    class PointRegionCheckerImpl {
+      -static double TOLERANCE
+      +boolean isInside(double x, double y, double R)
+      -boolean checkQuadrantII(...)
+      -boolean checkQuadrantIV(...)
+      -void validateRadius(double R)
+      -boolean isFinite(double value)
+    }
     class Lb3ExpressionResult {
       +BigDecimal value()
     }
     Main --> SevenTeen
+    Main --> PointRegionChecker
     SevenTeen --> SingleVariableExpression
     SevenTeen --> PiecewiseFunction
     SevenTeen --> GraphFunctionCalculator
     SevenTeen --> Lb3ExpressionResult
+    PointRegionChecker <|.. PointRegionCheckerImpl : implements
 ```
 
 ## How the project is implemented
 
-* `Main.java` reads all required input values for all three tasks
+* `Main.java` reads all required input values for all four tasks
 * each task has its own dedicated logic module
-* Task 3 adds clear labels in the output: `Task 1`, `Task 2`, `Task 3`
+* clear labels in the output: `Task 1`, `Task 2`, `Task 3`, `Task 4`
 * branching is implemented using the full `if / else if / else` structure
+* Task 4 uses the contract pattern (interface + package-private implementation)
 
 This is Laboratory Work 3, Variant 17, implemented in a structured OOP style with clear responsibility separation between classes.
