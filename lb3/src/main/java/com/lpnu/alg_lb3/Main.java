@@ -6,7 +6,6 @@ import com.lpnu.alg_lb3.util.Lb3ExpressionResult;
 import com.lpnu.alg_lb3.var.task2.SevenTeen;
 import com.lpnu.alg_lb3.var.task3.GraphFunctionCalculator;
 import com.lpnu.alg_lb3.var.task4.PointRegionChecker;
-import com.lpnu.common.dto.InParams;
 import java.math.BigDecimal;
 import java.util.Locale;
 import java.util.Scanner;
@@ -19,12 +18,13 @@ public class Main {
       SevenTeen variant = new SevenTeen();
 
       out.println("Task 1: single-variable function");
-      out.print("Task 1 | m = ");
-      BigDecimal m = scanner.nextBigDecimal();
-      out.print("Task 1 | n = ");
-      BigDecimal n = scanner.nextBigDecimal();
-      Lb3ExpressionResult singleVariableResult = variant.expression(new InParams(m, n));
-      out.println("Task 1 | y = " + singleVariableResult.y());
+      out.print("Task 1 | x = ");
+      BigDecimal task1X = scanner.nextBigDecimal();
+      BigDecimal t1Short = variant.evaluateSingleVariableShort(task1X);
+      BigDecimal t1Full = variant.evaluateSingleVariableFull(task1X);
+      out.println("Task 1 | y [short form] = " + t1Short);
+      out.println("Task 1 | y [full form] = " + t1Full);
+      out.println("Task 1 | results match: " + t1Short.compareTo(t1Full) + " (0 means equal)");
 
       out.println();
       out.println("Task 2: piecewise function F(x)");

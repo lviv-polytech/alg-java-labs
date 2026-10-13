@@ -7,12 +7,21 @@ public class ShortFormExpression extends PiecewiseExpression {
 
   @Override
   public BigDecimal evaluate(BigDecimal a, BigDecimal b, BigDecimal c, BigDecimal x) {
-    if (x.add(BigDecimal.TEN).compareTo(BigDecimal.ZERO) < 0 && b.compareTo(BigDecimal.ZERO) != 0) {
-      return calculateFirstCase(a, b, c, x);
+    BigDecimal result = BigDecimal.ZERO;
+    boolean cond1 =
+        x.add(BigDecimal.TEN).compareTo(BigDecimal.ZERO) < 0 && b.compareTo(BigDecimal.ZERO) != 0;
+    boolean cond2 =
+        x.add(BigDecimal.TEN).compareTo(BigDecimal.ZERO) > 0 && b.compareTo(BigDecimal.ZERO) == 0;
+
+    if (cond1) {
+      result = calculateFirstCase(a, b, c, x);
     }
-    if (x.add(BigDecimal.TEN).compareTo(BigDecimal.ZERO) > 0 && b.compareTo(BigDecimal.ZERO) == 0) {
-      return calculateSecondCase(a, c, x);
+    if (cond2) {
+      result = calculateSecondCase(a, c, x);
     }
-    return calculateThirdCase(a, c, x);
+    if (!cond1 && !cond2) {
+      result = calculateThirdCase(a, c, x);
+    }
+    return result;
   }
 }
