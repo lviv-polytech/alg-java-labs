@@ -5,15 +5,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public final class NestedCalculatorFactory {
-    private NestedCalculatorFactory() {}
+  private NestedCalculatorFactory() {}
 
-    public static List<NestedSeriesCalculator> getAllCalculators() {
-        return Arrays.asList(
-            new WhileNestedCalculator(),
-            new DoWhileNestedCalculator(),
-            new ForIncNestedCalculator(),
-            new ForDecNestedCalculator()
-        );
-    }
+  public static List<NestedSeriesCalculator> getAllCalculators() {
+    return Arrays.asList(
+        new WhileNestedCalculator(),
+        new DoWhileNestedCalculator(),
+        new ForIncNestedCalculator(),
+        new ForDecNestedCalculator());
+  }
 }
-

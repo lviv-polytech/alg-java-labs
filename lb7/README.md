@@ -20,4 +20,3 @@ Pairs matrix subsets locally isolating extreme nodes per iteration. Identifies l
 
 **Task 7.3: Dynamic Arrays & Max Diagonal Build**
 Dynamically allocates 2D target planes targeting pointer-to-pointer layouts `double**`. Executes targeted analytic transversals searching for absolute bounding rules (rows stripped of positive values) while executing localized restructuring. Replaces internal coordinates so global maximum elements migrate descending into the primary diagonal axis. Handles isolated memory clearing replicating unmanaged environments (`delete[]`).
-

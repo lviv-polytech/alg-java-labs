@@ -55,7 +55,7 @@ stateDiagram-v2
     Menu --> Task1Runner: "Select Task 1"
     Menu --> Task2Runner: "Select Task 2"
     Menu --> [*]: "Exit"
-    
+
     state Task2Runner {
         [*] --> InputPhase
         InputPhase --> ValidationPhase: "User enters bounds"
@@ -81,23 +81,23 @@ classDiagram
     class Task2Runner {
         +run() void
     }
-    
+
     class FunctionTabulator {
         <<interface>>
         +tabulate(xStart: double, xEnd: double, dx: double) List~TabulationPoint~
     }
-    
+
     class TabulationPoint {
         <<record>>
         +x() double
         +y() double
     }
-    
+
     class PiecewiseFunctionTabulator {
         +tabulate(xStart: double, xEnd: double, dx: double) List~TabulationPoint~
         -evaluateFunction(x: double) double
     }
-    
+
     Main --> Task1Runner : runs
     Main --> Task2Runner : runs
     Task2Runner --> FunctionTabulator : calls
@@ -127,7 +127,7 @@ The feature integrates pseudo-random number generator to execute simulation loop
 
 
 **Task 6: Nested Loops Math Series**
-Computes the dynamic complex mathematics series strictly evaluated by double nested loops. 
+Computes the dynamic complex mathematics series strictly evaluated by double nested loops.
 $$S = \sum_{k=1}^{20} \sqrt{\sin^2 k + \left| \sum_{i=1}^{k} \cos(i + k) \right| }$$
 Demonstrates encapsulation of loops across `while`, `do-while`, incrementing `for`, and decrementing `for` without precision loss.
 
@@ -137,4 +137,3 @@ Tabulates the Natural Logarithm mathematically using infinite Taylor series iter
 $$\ln x = \sum_{n=0}^{\infty} \frac{(x-1)^{n+1}}{(n+1) \cdot x^{n+1}}$$
 To avoid `pow` overloads, the component implements memory-efficient recurrence relations where $a_n = a_{n-1} \cdot \frac{x-1}{x} \cdot \frac{n}{n+1}$.
 Outputs an ASCII diagnostic table comparing algorithm bounds against native `Math.log`.
-
