@@ -21,7 +21,13 @@ This module provides modular implementations of 1D array operations, contrasting
      - Duplicate maximum even values: returns the index of the first occurrence: $k^* = \min \{ i \in I_{\text{even}} \mid a_i = M \}$.
    - **Decomposition:** `generate`, `formatArray`, `findMaxEvenIndex` in `IterativeMaxEvenService` and `RecursiveMaxEvenService`.
 
-3. **Task 6.3:** Generic input scanners reading strongly typed arrays.
+3. **Task 6.3: Stream & Keyboard Array Input with Ordinary and Generic/Template Functions**
+   - **Data Domain:** Sequential population and formatted output of 1D arrays of size $n$ via `Scanner` / input streams.
+   - **Dual Typification:**
+     - **Part A (Ordinary Functions):** Type-specialized for `Integer`: `inputArray`, `formatArray` (iterative and recursive).
+     - **Part B (Generic Functions):** Parametric polymorphism for generic type `T` (`Integer`, `Double`, `String`): `inputArrayTemplate`, `formatArrayTemplate` (iterative and recursive).
+   - **Deterministic Testing:** Fully decoupled from interactive standard input via injected `Scanner` instances over `String` streams.
+
 4. **Task 6.4:** Dynamic array manipulation: positive count, sum after last zero, and stable partition around value $2.0$.
 
 ## 2. Compilation and Execution
@@ -40,64 +46,78 @@ This module provides modular implementations of 1D array operations, contrasting
 
 ```mermaid
 flowchart TD
-    Start["Start Task 6.2: Search Max Even Index"] --> Init["Array a of size n, bestIndex = -1, i = 0"]
-    Init --> CheckEnd{"i < n?"}
-    CheckEnd -- "Yes" --> CheckEven{"a[i] % 2 == 0?"}
-    CheckEven -- "Yes" --> CheckGreater{"bestIndex == -1 || a[i] > a[bestIndex]?"}
-    CheckGreater -- "Yes" --> UpdateBest["bestIndex = i"]
-    CheckGreater -- "No" --> NextIdx["i = i + 1"]
-    CheckEven -- "No" --> NextIdx
-    UpdateBest --> NextIdx
-    NextIdx --> CheckEnd
-    CheckEnd -- "No" --> Return["Return bestIndex (-1 if no even elements)"]
-    Return --> Finish["End"]
+    Start["Start Task 6.3: Stream Array Input & Print"] --> ChooseMode{"Choose Paradigm: Iterative or Recursive?"}
+
+    ChooseMode -- "Iterative" --> ItLoop["For i = 0 to n - 1"]
+    ItLoop --> ItPrompt["Optional prompt: a[i] = "]
+    ItPrompt --> ItRead["Read token into a[i] via scanner.next()"]
+    ItRead --> ItCheck{"i == n - 1?"}
+    ItCheck -- "No" --> ItLoop
+    ItCheck -- "Yes" --> ItPrint["Format print array elements with fixed width"]
+
+    ChooseMode -- "Recursive" --> RecCall["Recursive step at index i (initial: 0)"]
+    RecCall --> BaseCase{"i >= n?"}
+    BaseCase -- "Yes" --> Terminate["Return (stop recursion)"]
+    BaseCase -- "No" --> RecPrompt["Optional prompt: a[i] = "]
+    RecPrompt --> RecRead["Read token into a[i] via scanner.next()"]
+    RecRead --> RecNext["Recursive call for index i + 1"]
+    RecNext --> BaseCase
+
+    ItPrint --> Finish["End"]
+    Terminate --> RecPrint["Format print array elements recursively"]
+    RecPrint --> Finish
 ```
 
 ### Activity / State Diagram (`stateDiagram-v2`)
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Initialization
-    Initialization --> ArrayGeneration: "Generate n elements in [-50, 50]"
-    ArrayGeneration --> DisplayInitial: "Format and print array (width = 5)"
-    DisplayInitial --> Processing
+    [*] --> Setup
+    Setup --> ScannerInjection: "Inject Scanner (System.in or String Scanner)"
+    ScannerInjection --> InputPhase
 
-    state Processing {
-        [*] --> EvaluateParity: "Check if a[i] % 2 == 0"
-        EvaluateParity --> UpdateCandidate: "a[i] > a[bestIndex] -> bestIndex = i"
-        UpdateCandidate --> NextStep: "i = i + 1"
-        EvaluateParity --> NextStep: "Odd element -> skip"
-        NextStep --> EvaluateParity: "i < n"
-        NextStep --> [*]: "i >= n"
+    state InputPhase {
+        [*] --> CheckBoundary: "Check index i < n"
+        CheckBoundary --> ReadToken: "scanner.next() extraction into a[i]"
+        ReadToken --> AdvanceIndex: "Increment index (loop or tail call)"
+        AdvanceIndex --> CheckBoundary
+        CheckBoundary --> [*]: "i >= n"
     }
 
-    Processing --> OutputResult: "Display index of max even element (-1 if absent)"
-    OutputResult --> [*]
+    InputPhase --> FormatPrintPhase: "Pass populated array to output formatter"
+
+    state FormatPrintPhase {
+        [*] --> FormatElement: "String.format(width, a[i])"
+        FormatElement --> NextPrint: "Advance to i + 1"
+        NextPrint --> FormatElement: "i < n"
+        NextPrint --> [*]: "i >= n -> return formatted string"
+    }
+
+    FormatPrintPhase --> [*]
 ```
 
 ### Class Diagram (`classDiagram`)
 
 ```mermaid
 classDiagram
-    class IterativeMaxEvenService {
-        +generate(array: int[], min: int, max: int) void
-        +formatArray(array: int[]) String
-        +isEven(value: int) boolean
-        +findMaxEvenIndex(array: int[]) int
+    class IterativeInputService {
+        +inputArray(array: Integer[], scanner: Scanner, promptWriter: Consumer~String~) void
+        +formatArray(array: Integer[], fieldWidth: int) String
+        +inputArrayTemplate~T~(array: T[], scanner: Scanner, parser: Function~String, T~, promptWriter: Consumer~String~) void
+        +formatArrayTemplate~T~(array: T[], fieldWidth: int) String
     }
 
-    class RecursiveMaxEvenService {
-        +generate(array: int[], min: int, max: int, index: int) void
-        +formatArray(array: int[], index: int) String
-        +isEven(value: int) boolean
-        +findMaxEvenIndex(array: int[]) int
-        +findMaxEvenIndex(array: int[], index: int, bestIndex: int) int
+    class RecursiveInputService {
+        +inputArray(array: Integer[], index: int, scanner: Scanner, promptWriter: Consumer~String~) void
+        +formatArray(array: Integer[], index: int, fieldWidth: int) String
+        +inputArrayTemplate~T~(array: T[], index: int, scanner: Scanner, parser: Function~String, T~, promptWriter: Consumer~String~) void
+        +formatArrayTemplate~T~(array: T[], index: int, fieldWidth: int) String
     }
 
-    class Task2Runner {
+    class Task3Runner {
         +run() void
     }
 
-    Task2Runner --> IterativeMaxEvenService
-    Task2Runner --> RecursiveMaxEvenService
+    Task3Runner ..> IterativeInputService : uses
+    Task3Runner ..> RecursiveInputService : uses
 ```
