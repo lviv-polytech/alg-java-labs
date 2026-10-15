@@ -28,7 +28,16 @@ This module provides modular implementations of 1D array operations, contrasting
      - **Part B (Generic Functions):** Parametric polymorphism for generic type `T` (`Integer`, `Double`, `String`): `inputArrayTemplate`, `formatArrayTemplate` (iterative and recursive).
    - **Deterministic Testing:** Fully decoupled from interactive standard input via injected `Scanner` instances over `String` streams.
 
-4. **Task 6.4:** Dynamic array manipulation: positive count, sum after last zero, and stable partition around value $2.0$.
+4. **Task 6.4: Real Dynamic Array Analysis and In-Place Stable Partition**
+   - **Data Domain:** Dynamically allocated real array $a = (a_0, \dots, a_{n-1})$ of size $n$ (`double[]`).
+   - **Mathematical Calculations:**
+     - Positive elements count: $C_{+} = \sum_{i=0}^{n-1} \chi_{+}(a_i)$, where $\chi_{+}(x) = 1$ if $x > 0$ else $0$.
+     - Last zero search: $k_{\text{last}} = \max \{ i \mid |a_i| < 10^{-9} \}$ (or $-1$ if absent).
+     - Sum after last zero: $S_{\text{after}} = \sum_{j = k_{\text{last}} + 1}^{n - 1} a_j$ (returns $0.0$ if $k_{\text{last}} = -1$ or $k_{\text{last}} = n - 1$).
+   - **In-Place Stable Partition:**
+     - Partition predicate: $\text{trunc}(x) \le 1 \iff x < 2.0$.
+     - Reorders elements so that elements with $\text{trunc}(x) \le 1$ precede all other elements, maintaining their relative order ($O(1)$ auxiliary space).
+   - **Decomposition:** `generate`, `formatArray`, `countPositiveElements`, `findLastZeroIndex`, `sumAfterLastZero`, `stableRestructure` across `IterativeArrayModifier` and `RecursiveArrayModifier`.
 
 ## 2. Compilation and Execution
 
@@ -46,78 +55,67 @@ This module provides modular implementations of 1D array operations, contrasting
 
 ```mermaid
 flowchart TD
-    Start["Start Task 6.3: Stream Array Input & Print"] --> ChooseMode{"Choose Paradigm: Iterative or Recursive?"}
-
-    ChooseMode -- "Iterative" --> ItLoop["For i = 0 to n - 1"]
-    ItLoop --> ItPrompt["Optional prompt: a[i] = "]
-    ItPrompt --> ItRead["Read token into a[i] via scanner.next()"]
-    ItRead --> ItCheck{"i == n - 1?"}
-    ItCheck -- "No" --> ItLoop
-    ItCheck -- "Yes" --> ItPrint["Format print array elements with fixed width"]
-
-    ChooseMode -- "Recursive" --> RecCall["Recursive step at index i (initial: 0)"]
-    RecCall --> BaseCase{"i >= n?"}
-    BaseCase -- "Yes" --> Terminate["Return (stop recursion)"]
-    BaseCase -- "No" --> RecPrompt["Optional prompt: a[i] = "]
-    RecPrompt --> RecRead["Read token into a[i] via scanner.next()"]
-    RecRead --> RecNext["Recursive call for index i + 1"]
-    RecNext --> BaseCase
-
-    ItPrint --> Finish["End"]
-    Terminate --> RecPrint["Format print array elements recursively"]
-    RecPrint --> Finish
+    Start["Start Task 6.4: Dynamic Array Operations"] --> InputSize["Enter array size n, allocate double[n]"]
+    InputSize --> InitArr["Generate random real values in [-5.0, 5.0]"]
+    InitArr --> PrintInit["Print initial formatted array (width = 8, prec = 2)"]
+    PrintInit --> CountPos["Calculate count of positive elements (x > 0.0)"]
+    CountPos --> FindZero["Find last zero index k_last (from right to left)"]
+    FindZero --> CheckZero{"k_last >= 0 && k_last < n - 1?"}
+    CheckZero -- "Yes" --> SumElements["Sum elements from k_last + 1 to n - 1"]
+    CheckZero -- "No" --> ZeroSum["Sum after last zero = 0.0"]
+    SumElements --> Partition["In-place stable partition: trunc(x) <= 1 before others"]
+    ZeroSum --> Partition
+    Partition --> PrintFinal["Print modified formatted array with identical format"]
+    PrintFinal --> Finish["End"]
 ```
 
 ### Activity / State Diagram (`stateDiagram-v2`)
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Setup
-    Setup --> ScannerInjection: "Inject Scanner (System.in or String Scanner)"
-    ScannerInjection --> InputPhase
+    [*] --> Allocation
+    Allocation --> DataInitialization: "Generate n real elements in [-5.0, 5.0]"
+    DataInitialization --> DisplayInitial: "Formatted print to stdout"
+    DisplayInitial --> AnalysisPhase
 
-    state InputPhase {
-        [*] --> CheckBoundary: "Check index i < n"
-        CheckBoundary --> ReadToken: "scanner.next() extraction into a[i]"
-        ReadToken --> AdvanceIndex: "Increment index (loop or tail call)"
-        AdvanceIndex --> CheckBoundary
-        CheckBoundary --> [*]: "i >= n"
+    state AnalysisPhase {
+        [*] --> ComputePositive: "Count positive elements (x > 0)"
+        ComputePositive --> LocateLastZero: "Search for last zero (right-to-left)"
+        LocateLastZero --> ComputeSumAfter: "Sum suffix strictly after last zero"
+        ComputeSumAfter --> [*]
     }
 
-    InputPhase --> FormatPrintPhase: "Pass populated array to output formatter"
-
-    state FormatPrintPhase {
-        [*] --> FormatElement: "String.format(width, a[i])"
-        FormatElement --> NextPrint: "Advance to i + 1"
-        NextPrint --> FormatElement: "i < n"
-        NextPrint --> [*]: "i >= n -> return formatted string"
-    }
-
-    FormatPrintPhase --> [*]
+    AnalysisPhase --> InPlacePartition: "Stable partition: shift elements with trunc(x) <= 1"
+    InPlacePartition --> DisplayModified: "Formatted print of partitioned array"
+    DisplayModified --> [*]
 ```
 
 ### Class Diagram (`classDiagram`)
 
 ```mermaid
 classDiagram
-    class IterativeInputService {
-        +inputArray(array: Integer[], scanner: Scanner, promptWriter: Consumer~String~) void
-        +formatArray(array: Integer[], fieldWidth: int) String
-        +inputArrayTemplate~T~(array: T[], scanner: Scanner, parser: Function~String, T~, promptWriter: Consumer~String~) void
-        +formatArrayTemplate~T~(array: T[], fieldWidth: int) String
+    class IterativeArrayModifier {
+        +generate(array: double[], min: int, max: int) void
+        +formatArray(array: double[]) String
+        +countPositiveElements(array: double[]) int
+        +findLastZeroIndex(array: double[]) int
+        +sumAfterLastZero(array: double[]) double
+        +stableRestructure(array: double[]) void
     }
 
-    class RecursiveInputService {
-        +inputArray(array: Integer[], index: int, scanner: Scanner, promptWriter: Consumer~String~) void
-        +formatArray(array: Integer[], index: int, fieldWidth: int) String
-        +inputArrayTemplate~T~(array: T[], index: int, scanner: Scanner, parser: Function~String, T~, promptWriter: Consumer~String~) void
-        +formatArrayTemplate~T~(array: T[], index: int, fieldWidth: int) String
+    class RecursiveArrayModifier {
+        +generate(array: double[], min: int, max: int, index: int) void
+        +formatArray(array: double[], index: int) String
+        +countPositiveElements(array: double[], index: int) int
+        +findLastZeroIndex(array: double[], index: int) int
+        +sumAfterLastZero(array: double[]) double
+        +stableRestructure(array: double[]) void
     }
 
-    class Task3Runner {
+    class Task4Runner {
         +run() void
     }
 
-    Task3Runner ..> IterativeInputService : uses
-    Task3Runner ..> RecursiveInputService : uses
+    Task4Runner ..> IterativeArrayModifier : uses
+    Task4Runner ..> RecursiveArrayModifier : uses
 ```
