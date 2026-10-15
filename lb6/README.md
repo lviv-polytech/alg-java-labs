@@ -12,7 +12,15 @@ This module provides modular implementations of 1D array operations, contrasting
      - Cumulative sum: $80 \le S \le 1825$.
      - Call sequence: $\text{Generate} \to \text{Print} \to (\text{Count}, \text{Sum}) \to \text{Zero} \to \text{Print}$.
    - **Decomposition:** Single-responsibility methods across `IterativeArrayService` and `RecursiveArrayService` (`generate`, `formatArray`, `countElements`, `sumElements`, `zeroElements`).
-2. **Task 6.2:** Extreme search for the index of the maximum even integer (returns `-1` if absent).
+
+2. **Task 6.2 (Variant 17): Search for the Index of the Maximum Even Element**
+   - **Data Domain:** One-dimensional array $a = (a_0, \dots, a_{n-1})$ with $a_i \in [-50, 50]$.
+   - **Mathematical Model:**
+     - Parity predicate: $P(x) \iff (x \bmod 2 = 0)$ (0 and negative evens are included).
+     - Missing even elements ($I_{\text{even}} = \varnothing$): returns sentinel value $-1$.
+     - Duplicate maximum even values: returns the index of the first occurrence: $k^* = \min \{ i \in I_{\text{even}} \mid a_i = M \}$.
+   - **Decomposition:** `generate`, `formatArray`, `findMaxEvenIndex` in `IterativeMaxEvenService` and `RecursiveMaxEvenService`.
+
 3. **Task 6.3:** Generic input scanners reading strongly typed arrays.
 4. **Task 6.4:** Dynamic array manipulation: positive count, sum after last zero, and stable partition around value $2.0$.
 
@@ -32,20 +40,17 @@ This module provides modular implementations of 1D array operations, contrasting
 
 ```mermaid
 flowchart TD
-    Start["Start Task 6.1 (Variant 17)"] --> Gen["Generate array: 25 integers in range [4, 73]"]
-    Gen --> PrintInit["Format and display initial array (width = 4)"]
-    PrintInit --> Process["Process elements: index i = 0 .. 24"]
-    Process --> Check{"(r[i] % 6 == 0) || (i % 5 != 0)?"}
-    Check -- "Yes" --> MatchAction["Increment count K, accumulate sum S"]
-    Check -- "No" --> Keep["Keep element value"]
-    MatchAction --> Step["Next index i = i + 1"]
-    Keep --> Step
-    Step --> HasMore{"i < 25?"}
-    HasMore -- "Yes" --> Check
-    HasMore -- "No" --> ZeroPhase["Zero out matched elements in-place"]
-    ZeroPhase --> DisplayStats["Print Count K and Sum S"]
-    DisplayStats --> PrintMod["Format and display modified array"]
-    PrintMod --> Finish["End"]
+    Start["Start Task 6.2: Search Max Even Index"] --> Init["Array a of size n, bestIndex = -1, i = 0"]
+    Init --> CheckEnd{"i < n?"}
+    CheckEnd -- "Yes" --> CheckEven{"a[i] % 2 == 0?"}
+    CheckEven -- "Yes" --> CheckGreater{"bestIndex == -1 || a[i] > a[bestIndex]?"}
+    CheckGreater -- "Yes" --> UpdateBest["bestIndex = i"]
+    CheckGreater -- "No" --> NextIdx["i = i + 1"]
+    CheckEven -- "No" --> NextIdx
+    UpdateBest --> NextIdx
+    NextIdx --> CheckEnd
+    CheckEnd -- "No" --> Return["Return bestIndex (-1 if no even elements)"]
+    Return --> Finish["End"]
 ```
 
 ### Activity / State Diagram (`stateDiagram-v2`)
@@ -53,58 +58,46 @@ flowchart TD
 ```mermaid
 stateDiagram-v2
     [*] --> Initialization
-    Initialization --> GenerateArray: "Fill array in [4, 73]"
-    GenerateArray --> PrintInitial: "Display formatted original state"
-    PrintInitial --> Analysis
+    Initialization --> ArrayGeneration: "Generate n elements in [-50, 50]"
+    ArrayGeneration --> DisplayInitial: "Format and print array (width = 5)"
+    DisplayInitial --> Processing
 
-    state Analysis {
-        [*] --> CountElements: "Count matching elements (iterative / recursive)"
-        CountElements --> SumElements: "Sum matching elements (iterative / recursive)"
-        SumElements --> ZeroElements: "Zero matched cells in-place"
-        ZeroElements --> [*]
+    state Processing {
+        [*] --> EvaluateParity: "Check if a[i] % 2 == 0"
+        EvaluateParity --> UpdateCandidate: "a[i] > a[bestIndex] -> bestIndex = i"
+        UpdateCandidate --> NextStep: "i = i + 1"
+        EvaluateParity --> NextStep: "Odd element -> skip"
+        NextStep --> EvaluateParity: "i < n"
+        NextStep --> [*]: "i >= n"
     }
 
-    Analysis --> DisplayResults: "Output Count and Sum"
-    DisplayResults --> PrintModified: "Display modified array with zeros"
-    PrintModified --> [*]
+    Processing --> OutputResult: "Display index of max even element (-1 if absent)"
+    OutputResult --> [*]
 ```
 
 ### Class Diagram (`classDiagram`)
 
 ```mermaid
 classDiagram
-    class ArrayProcessResult {
-        <<Record>>
-        +count() int
-        +sum() int
-    }
-
-    class IterativeArrayService {
+    class IterativeMaxEvenService {
         +generate(array: int[], min: int, max: int) void
         +formatArray(array: int[]) String
-        +isSelected(index: int, value: int) boolean
-        +countElements(array: int[]) int
-        +sumElements(array: int[]) int
-        +zeroElements(array: int[]) void
-        +processAndModify(array: int[]) ArrayProcessResult
+        +isEven(value: int) boolean
+        +findMaxEvenIndex(array: int[]) int
     }
 
-    class RecursiveArrayService {
+    class RecursiveMaxEvenService {
         +generate(array: int[], min: int, max: int, index: int) void
         +formatArray(array: int[], index: int) String
-        +isSelected(index: int, value: int) boolean
-        +countElements(array: int[], index: int) int
-        +sumElements(array: int[], index: int) int
-        +zeroElements(array: int[], index: int) void
-        +processAndModify(array: int[], index: int) ArrayProcessResult
+        +isEven(value: int) boolean
+        +findMaxEvenIndex(array: int[]) int
+        +findMaxEvenIndex(array: int[], index: int, bestIndex: int) int
     }
 
-    class Task1Runner {
+    class Task2Runner {
         +run() void
     }
 
-    Task1Runner --> IterativeArrayService
-    Task1Runner --> RecursiveArrayService
-    IterativeArrayService --> ArrayProcessResult : creates
-    RecursiveArrayService --> ArrayProcessResult : creates
+    Task2Runner --> IterativeMaxEvenService
+    Task2Runner --> RecursiveMaxEvenService
 ```
