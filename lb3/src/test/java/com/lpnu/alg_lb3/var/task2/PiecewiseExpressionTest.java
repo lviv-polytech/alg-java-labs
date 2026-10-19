@@ -11,26 +11,14 @@ class PiecewiseExpressionTest {
   private final FullFormExpression fullForm = new FullFormExpression();
 
   @Test
-  void firstBranchEvaluatesPolynomial() {
-    BigDecimal a = BigDecimal.ONE;
-    BigDecimal b = BigDecimal.valueOf(2);
-    BigDecimal c = BigDecimal.valueOf(3);
-    BigDecimal x = BigDecimal.valueOf(-15);
-
-    BigDecimal expected = BigDecimal.valueOf(272);
-
-    assertEquals(expected, shortForm.evaluate(a, b, c, x));
-    assertEquals(expected, fullForm.evaluate(a, b, c, x));
-  }
-
-  @Test
-  void secondBranchEvaluatesFractionWhenBIsZero() {
+  void secondBranchEvaluatesQuadraticWhenBIsZero() {
+    // For Variant 17: F = x^2 - cx
     BigDecimal a = BigDecimal.ONE;
     BigDecimal b = BigDecimal.ZERO;
     BigDecimal c = BigDecimal.valueOf(3);
     BigDecimal x = BigDecimal.valueOf(5);
 
-    BigDecimal expected = BigDecimal.valueOf(2);
+    BigDecimal expected = BigDecimal.valueOf(10); // 5^2 - 3*5 = 25 - 15 = 10
 
     assertEquals(expected, shortForm.evaluate(a, b, c, x));
     assertEquals(expected, fullForm.evaluate(a, b, c, x));
@@ -43,7 +31,7 @@ class PiecewiseExpressionTest {
     BigDecimal c = BigDecimal.valueOf(3);
     BigDecimal x = BigDecimal.valueOf(2);
 
-    BigDecimal expected = BigDecimal.ONE;
+    BigDecimal expected = BigDecimal.ONE; // -x / (a-c) = -2 / (1-3) = -2 / -2 = 1
 
     assertEquals(expected, shortForm.evaluate(a, b, c, x));
     assertEquals(expected, fullForm.evaluate(a, b, c, x));

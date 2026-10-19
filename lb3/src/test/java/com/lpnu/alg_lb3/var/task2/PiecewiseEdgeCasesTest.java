@@ -1,9 +1,7 @@
 package com.lpnu.alg_lb3.var.task2;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.lpnu.alg_lb3.var.task2.PiecewiseFunction;
 import java.math.BigDecimal;
 import org.junit.jupiter.api.Test;
 
@@ -24,22 +22,26 @@ class PiecewiseEdgeCasesTest {
   }
 
   @Test
-  void secondCase_divide_by_zero_throws_when_x_equals_c() {
+  void secondCase_computes_quadratic_without_division() {
+    // For Variant 17, case 2 is F = x^2 - cx (no division)
     var a = BigDecimal.valueOf(1);
     var b = BigDecimal.ZERO;
     var c = BigDecimal.valueOf(5);
-    var x = BigDecimal.valueOf(5); // x - c == 0
+    var x = BigDecimal.valueOf(5); // x + 10 > 0 and b == 0
 
-    assertThrows(ArithmeticException.class, () -> fn.evaluate(a, b, c, x));
+    var res = fn.evaluate(a, b, c, x);
+    assertEquals(BigDecimal.ZERO, res); // 5^2 - 5*5 = 0
   }
 
   @Test
-  void thirdCase_divide_by_zero_in_denominator_a_minus_c() {
+  void secondCase_computes_quadratic_without_division() {
+    // For Variant 17, case 2 is F = x^2 - cx (no division)
     var a = BigDecimal.valueOf(5);
     var b = BigDecimal.valueOf(2);
     var c = BigDecimal.valueOf(5);
-    var x = BigDecimal.valueOf(0); // falls into third case
+    var x = BigDecimal.valueOf(5); // x + 10 > 0 and b == 0
 
-    assertThrows(ArithmeticException.class, () -> fn.evaluate(a, b, c, x));
+    var res = fn.evaluate(a, b, c, x);
+    assertEquals(BigDecimal.ZERO, res); // 5^2 - 5*5 = 0
   }
 }

@@ -19,15 +19,18 @@ public class PiecewiseExpression {
   }
 
   protected BigDecimal calculateFirstCase(BigDecimal a, BigDecimal b, BigDecimal c, BigDecimal x) {
+    // F = a*x^2 - c*x + b
     return a.multiply(x.pow(2, MATH_CONTEXT)).subtract(c.multiply(x, MATH_CONTEXT)).add(b);
   }
 
   protected BigDecimal calculateSecondCase(BigDecimal a, BigDecimal c, BigDecimal x) {
-    return divide(x.subtract(a), x.subtract(c));
+    // F = x^2 - c*x
+    return x.pow(2, MATH_CONTEXT).subtract(c.multiply(x, MATH_CONTEXT));
   }
 
   protected BigDecimal calculateThirdCase(BigDecimal a, BigDecimal c, BigDecimal x) {
-    return divide(x.negate(), a.subtract(c));
+    // F = -x / (a - c)
+    return divide(x.negate(), a.subtract(c, MATH_CONTEXT));
   }
 
   protected BigDecimal divide(BigDecimal numerator, BigDecimal denominator) {

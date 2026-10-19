@@ -3,4 +3,5 @@ module com.lpnu.commonutils {
   exports com.lpnu.common.contract;
   exports com.lpnu.common.dto;
   exports com.lpnu.common.io;
+  exports com.lpnu.common.math;
 }

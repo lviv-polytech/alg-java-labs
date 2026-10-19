@@ -4,11 +4,11 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
- * Minimal safe console scanner used by lab modules. Keeps a single Scanner wrapper
- * and provides safe parsing helpers that do not throw on EOF unexpectedly.
+ * Minimal safe console scanner used by lab modules. Keeps a single Scanner wrapper and provides
+ * safe parsing helpers that do not throw on EOF unexpectedly.
  *
- * This class is intentionally small — extend with retry logic and validation as
- * needed inside this module.
+ * <p>This class is intentionally small — extend with retry logic and validation as needed inside
+ * this module.
  */
 public final class SafeScanner {
 

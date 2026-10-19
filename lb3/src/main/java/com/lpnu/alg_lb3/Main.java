@@ -2,10 +2,10 @@ package com.lpnu.alg_lb3;
 
 import static java.lang.System.out;
 
-import com.lpnu.common.dto.InParams;
 import com.lpnu.alg_lb3.util.Lb3ExpressionResult;
 import com.lpnu.alg_lb3.var.task2.SevenTeen;
 import com.lpnu.alg_lb3.var.task3.GraphFunctionCalculator;
+import com.lpnu.alg_lb3.var.task4.PointRegionChecker;
 import java.math.BigDecimal;
 import java.util.Locale;
 import java.util.Scanner;
@@ -18,12 +18,13 @@ public class Main {
       SevenTeen variant = new SevenTeen();
 
       out.println("Task 1: single-variable function");
-      out.print("Task 1 | m = ");
-      BigDecimal m = scanner.nextBigDecimal();
-      out.print("Task 1 | n = ");
-      BigDecimal n = scanner.nextBigDecimal();
-      Lb3ExpressionResult singleVariableResult = variant.expression(new InParams(m, n));
-      out.println("Task 1 | y = " + singleVariableResult.y());
+      out.print("Task 1 | x = ");
+      BigDecimal task1X = scanner.nextBigDecimal();
+      BigDecimal t1Short = variant.evaluateSingleVariableShort(task1X);
+      BigDecimal t1Full = variant.evaluateSingleVariableFull(task1X);
+      out.println("Task 1 | y [short form] = " + t1Short);
+      out.println("Task 1 | y [full form] = " + t1Full);
+      out.println("Task 1 | results match: " + t1Short.compareTo(t1Full) + " (0 means equal)");
 
       out.println();
       out.println("Task 2: piecewise function F(x)");
@@ -56,6 +57,28 @@ public class Main {
       double task3Y = GraphFunctionCalculator.calculate(task3X, task3R);
       out.println("Task 3 | y = " + task3Y);
       out.println("Task 3 | input variables: x = " + task3X + ", R = " + task3R);
+
+      out.println();
+      out.println("Task 4: point region checker");
+      out.print("Task 4 | x = ");
+      double task4X = scanner.nextDouble();
+      out.print("Task 4 | y = ");
+      double task4Y = scanner.nextDouble();
+      out.print("Task 4 | R = ");
+      double task4R = scanner.nextDouble();
+
+      PointRegionChecker checker = PointRegionChecker.create();
+      boolean isInside = checker.isInside(task4X, task4Y, task4R);
+      out.println(
+          "Task 4 | Point ("
+              + task4X
+              + ", "
+              + task4Y
+              + ") is "
+              + (isInside ? "INSIDE" : "OUTSIDE")
+              + " the shaded region (R = "
+              + task4R
+              + ")");
     }
   }
 }
