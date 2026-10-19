@@ -2,8 +2,11 @@ package com.lpnu.lb5.ui.task3;
 
 import com.lpnu.common.SafeScanner;
 import com.lpnu.lb5.service.task3.PiecewiseFunctionService;
+import java.util.Locale;
 
 public class Task3Runner {
+
+  private static final String BORDER = "+--------------+--------------------+";
 
   public void run() {
     System.out.println("--- Task 3: Piecewise Functions and Recurrent Loops ---");
@@ -38,9 +41,12 @@ public class Task3Runner {
     // Calculate step logic analytically
     double dg = (gEnd - gStart) / nSegments;
 
-    System.out.println("\n+------------+----------------+");
-    System.out.printf("| %-10s | %-14s |%n", "g", "Q(g)");
-    System.out.println("+------------+----------------+");
+    System.out.println();
+    System.out.println(BORDER);
+    System.out.printf(Locale.US, "| %-33s |%n", "    Function Tabulation Table");
+    System.out.println(BORDER);
+    System.out.printf(Locale.US, "| %12s | %18s |%n", "g", "Q(g)");
+    System.out.println(BORDER);
 
     PiecewiseFunctionService service = new PiecewiseFunctionService();
 
@@ -48,12 +54,26 @@ public class Task3Runner {
     for (int i = 0; i <= nSegments; i++) {
       double g = gStart + i * dg;
       double result = service.evaluateComposite(g);
+      String gCell = formatNumericCell(g, 12, 4);
+      String resCell = Double.isFinite(result) ? formatNumericCell(result, 18, 6) : "undefined";
 
-      System.out.printf("| %-10.4f | %-14.6f |%n", g, result);
+      System.out.printf(Locale.US, "| %12s | %18s |%n", gCell, resCell);
     }
 
-    System.out.println("+------------+----------------+");
+    System.out.println(BORDER);
     System.out.println("Task 3 completed.\n");
+  }
+
+  private static String formatNumericCell(double value, int width, int precision) {
+    if (!Double.isFinite(value)) {
+      return "undefined";
+    }
+    String fixed = String.format(Locale.US, "%." + precision + "f", value);
+    if (fixed.length() <= width) {
+      return fixed;
+    }
+    int sciPrecision = Math.max(1, width - 7);
+    return String.format(Locale.US, "%." + sciPrecision + "e", value);
   }
 
   private double promptDouble(SafeScanner scanner, String message) {
@@ -62,7 +82,11 @@ public class Task3Runner {
       String line = scanner.nextLineOrNull();
       if (line == null) System.exit(0);
       try {
-        return Double.parseDouble(line.trim());
+        double value = Double.parseDouble(line.trim());
+        if (Double.isFinite(value)) {
+          return value;
+        }
+        System.out.println("Value must be finite. Try again.");
       } catch (NumberFormatException e) {
         System.out.println("Invalid format. Try again.");
       }

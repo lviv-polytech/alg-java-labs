@@ -63,17 +63,32 @@ public class Task7Runner {
   }
 
   private void printTable(List<TaylorRow> rows) {
-    String template = "| %-10.4f | %-14.6f | %-14.6f | %-12d |%n";
-    String border = "+------------+----------------+----------------+--------------+";
+    String border = "+--------------+--------------------+--------------------+--------------+";
 
     System.out.println();
     System.out.println(border);
     System.out.printf(
-        "| %-10s | %-14s | %-14s | %-12s |%n", "x", "Math.log(x)", "Taylor Sum", "Terms (n)");
+        java.util.Locale.US,
+        "| %-69s |%n",
+        "      Taylor Series Tabulation for ln(x) (Variant 17)");
+    System.out.println(border);
+    System.out.printf(
+        java.util.Locale.US,
+        "| %12s | %18s | %18s | %12s |%n",
+        "x",
+        "ln(x) (Exact)",
+        "Taylor Sum",
+        "Terms");
     System.out.println(border);
 
     for (TaylorRow r : rows) {
-      System.out.printf(template, r.x(), r.mathLog(), r.taylorLog(), r.termsCount());
+      System.out.printf(
+          java.util.Locale.US,
+          "| %12.4f | %18.8f | %18.8f | %12d |%n",
+          r.x(),
+          r.mathLog(),
+          r.taylorLog(),
+          r.termsCount());
     }
 
     System.out.println(border);

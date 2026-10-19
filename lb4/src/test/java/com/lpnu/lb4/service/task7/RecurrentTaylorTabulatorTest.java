@@ -15,27 +15,31 @@ class RecurrentTaylorTabulatorTest {
     // ln(1) = 0. Our formula: (1-1)/1 = 0.
     List<TaylorRow> rows = tabulator.tabulate(1.0, 1.0, 1.0, 0.0001);
     Assertions.assertEquals(1, rows.size());
-    Assertions.assertEquals(0.0, rows.get(0).taylorLog(), 1e-6);
-    Assertions.assertEquals(0.0, rows.get(0).mathLog(), 1e-6);
+    Assertions.assertEquals(0.0, rows.get(0).taylorLog(), 1e-12);
+    Assertions.assertEquals(0.0, rows.get(0).mathLog(), 1e-12);
+    Assertions.assertEquals(1, rows.get(0).termsCount());
   }
 
   @Test
   void testTaylorSeriesConvergenceNormalValue() {
-    // x = 2
-    // ln(2) ~ 0.693147
-    double eps = 1e-6;
+    // x = 2, eps = 1e-4 -> 10 terms, sum = 0.69306485615079365
+    double eps = 1e-4;
     List<TaylorRow> rows = tabulator.tabulate(2.0, 2.0, 1.0, eps);
     TaylorRow row = rows.get(0);
 
-    // Ensure Taylor approximates Math.log up to the precision
-    Assertions.assertEquals(row.mathLog(), row.taylorLog(), eps * 10); // buffer logic
+    Assertions.assertEquals(10, row.termsCount());
+    Assertions.assertEquals(0.69306485615079365, row.taylorLog(), 1e-12);
+    Assertions.assertEquals(row.mathLog(), row.taylorLog(), eps);
   }
 
   @Test
   void testMultipleTabulationSteps() {
-    // x in [1.5, 3.0] step 0.5
-    List<TaylorRow> rows = tabulator.tabulate(1.5, 3.0, 0.5, 1e-5);
-    Assertions.assertEquals(4, rows.size()); // 1.5, 2.0, 2.5, 3.0
+    // x in [0.6, 2.0] step 0.2 -> 8 points without floating-point drift
+    List<TaylorRow> rows = tabulator.tabulate(0.6, 2.0, 0.2, 1e-4);
+    Assertions.assertEquals(8, rows.size());
+    Assertions.assertEquals(0.6, rows.get(0).x(), 1e-12);
+    Assertions.assertEquals(1.0, rows.get(2).x(), 1e-12);
+    Assertions.assertEquals(2.0, rows.get(7).x(), 1e-12);
 
     for (TaylorRow row : rows) {
       Assertions.assertEquals(Math.log(row.x()), row.taylorLog(), 1e-4);

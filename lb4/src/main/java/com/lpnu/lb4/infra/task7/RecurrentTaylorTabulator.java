@@ -13,6 +13,12 @@ public class RecurrentTaylorTabulator implements TaylorSeriesTabulator {
 
   @Override
   public List<TaylorRow> tabulate(double xStart, double xEnd, double dx, double eps) {
+    if (!Double.isFinite(xStart)
+        || !Double.isFinite(xEnd)
+        || !Double.isFinite(dx)
+        || !Double.isFinite(eps)) {
+      throw new IllegalArgumentException("Tabulation parameters must be finite numbers");
+    }
     if (xStart <= 0.5) {
       throw new IllegalArgumentException("Domain error: xStart must be > 0.5");
     }
@@ -27,15 +33,20 @@ public class RecurrentTaylorTabulator implements TaylorSeriesTabulator {
     }
 
     List<TaylorRow> results = new ArrayList<>();
-    double x = xStart;
+    for (int i = 0; ; i++) {
+      double x = xStart + i * dx;
+      if (x > xEnd + EPSILON_OFFSET) {
+        break;
+      }
+      if (Math.abs(x) < 1e-12) {
+        x = 0.0;
+      }
 
-    while (x <= xEnd + EPSILON_OFFSET) {
       // Reusing common mathematical logic encapsulated in common-utils
       TaylorResult calcResult = Variant17Math.computeLnTaylorSeries(x, eps);
       double mathLog = Math.log(x);
 
       results.add(new TaylorRow(x, mathLog, calcResult.sum(), calcResult.termsCount()));
-      x += dx;
     }
 
     return results;
