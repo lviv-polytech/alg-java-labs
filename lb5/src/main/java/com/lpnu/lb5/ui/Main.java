@@ -33,7 +33,7 @@ public class Main {
       }
 
       if (choice.equals("0") || choice.equals("5.0")) {
-        new Task0Runner().run();
+        new Task0Runner(scanner).run();
         break;
       } else if (choice.equals("1") || choice.equals("5.1")) {
         new Task1Runner().run();

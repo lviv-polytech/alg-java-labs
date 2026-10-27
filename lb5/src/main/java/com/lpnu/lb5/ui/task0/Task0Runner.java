@@ -5,9 +5,18 @@ import com.lpnu.lb5.service.task0.IntroCalculationService;
 
 public class Task0Runner {
 
+  private final SafeScanner scanner;
+
+  public Task0Runner() {
+    this(new SafeScanner());
+  }
+
+  public Task0Runner(SafeScanner scanner) {
+    this.scanner = scanner;
+  }
+
   public void run() {
     System.out.println("--- Task 0: Introductory Calculation (Task 5.0) ---");
-    SafeScanner scanner = new SafeScanner();
 
     double a = promptDouble(scanner, "a = ");
     double b = promptDouble(scanner, "b = ");
