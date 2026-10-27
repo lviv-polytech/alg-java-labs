@@ -11,6 +11,9 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
+  private static final String ANSI_ESCAPE_REGEX =
+      "\u001B\\[[\\x30-\\x3f]*[\\x20-\\x2f]*[\\x40-\\x7e]|\u001B.";
+
   public static void main(String[] args) {
     try (Scanner scanner = new Scanner(System.in)) {
       scanner.useLocale(Locale.US);
@@ -18,8 +21,7 @@ public class Main {
       SevenTeen variant = new SevenTeen();
 
       out.println("Task 1: single-variable function");
-      out.print("Task 1 | x = ");
-      BigDecimal task1X = scanner.nextBigDecimal();
+      BigDecimal task1X = readBigDecimal(scanner, "Task 1 | x = ");
       BigDecimal t1Short = variant.evaluateSingleVariableShort(task1X);
       BigDecimal t1Full = variant.evaluateSingleVariableFull(task1X);
       out.println("Task 1 | y [short form] = " + t1Short);
@@ -28,14 +30,10 @@ public class Main {
 
       out.println();
       out.println("Task 2: piecewise function F(x)");
-      out.print("Task 2 | a = ");
-      BigDecimal a = scanner.nextBigDecimal();
-      out.print("Task 2 | b = ");
-      BigDecimal b = scanner.nextBigDecimal();
-      out.print("Task 2 | c = ");
-      BigDecimal c = scanner.nextBigDecimal();
-      out.print("Task 2 | x = ");
-      BigDecimal x = scanner.nextBigDecimal();
+      BigDecimal a = readBigDecimal(scanner, "Task 2 | a = ");
+      BigDecimal b = readBigDecimal(scanner, "Task 2 | b = ");
+      BigDecimal c = readBigDecimal(scanner, "Task 2 | c = ");
+      BigDecimal x = readBigDecimal(scanner, "Task 2 | x = ");
 
       BigDecimal shortResult = variant.evaluatePiecewiseShort(a, b, c, x);
       BigDecimal fullResult = variant.evaluatePiecewiseFull(a, b, c, x);
@@ -49,10 +47,8 @@ public class Main {
 
       out.println();
       out.println("Task 3: graph-defined function y = f(x)");
-      out.print("Task 3 | x = ");
-      double task3X = scanner.nextDouble();
-      out.print("Task 3 | R = ");
-      double task3R = scanner.nextDouble();
+      double task3X = readDouble(scanner, "Task 3 | x = ");
+      double task3R = readDouble(scanner, "Task 3 | R = ");
 
       double task3Y = GraphFunctionCalculator.calculate(task3X, task3R);
       out.println("Task 3 | y = " + task3Y);
@@ -60,12 +56,9 @@ public class Main {
 
       out.println();
       out.println("Task 4: point region checker");
-      out.print("Task 4 | x = ");
-      double task4X = scanner.nextDouble();
-      out.print("Task 4 | y = ");
-      double task4Y = scanner.nextDouble();
-      out.print("Task 4 | R = ");
-      double task4R = scanner.nextDouble();
+      double task4X = readDouble(scanner, "Task 4 | x = ");
+      double task4Y = readDouble(scanner, "Task 4 | y = ");
+      double task4R = readDouble(scanner, "Task 4 | R = ");
 
       PointRegionChecker checker = PointRegionChecker.create();
       boolean isInside = checker.isInside(task4X, task4Y, task4R);
@@ -79,6 +72,42 @@ public class Main {
               + " the shaded region (R = "
               + task4R
               + ")");
+    }
+  }
+
+  private static BigDecimal readBigDecimal(Scanner scanner, String prompt) {
+    while (true) {
+      out.print(prompt);
+      if (!scanner.hasNext()) {
+        System.exit(0);
+      }
+      String token = scanner.next().replaceAll(ANSI_ESCAPE_REGEX, "").trim();
+      if (token.isEmpty()) {
+        continue;
+      }
+      try {
+        return new BigDecimal(token.replace(',', '.'));
+      } catch (NumberFormatException e) {
+        out.println("Invalid number format. Please enter a valid number.");
+      }
+    }
+  }
+
+  private static double readDouble(Scanner scanner, String prompt) {
+    while (true) {
+      out.print(prompt);
+      if (!scanner.hasNext()) {
+        System.exit(0);
+      }
+      String token = scanner.next().replaceAll(ANSI_ESCAPE_REGEX, "").trim();
+      if (token.isEmpty()) {
+        continue;
+      }
+      try {
+        return Double.parseDouble(token.replace(',', '.'));
+      } catch (NumberFormatException e) {
+        out.println("Invalid number format. Please enter a valid number.");
+      }
     }
   }
 }

@@ -13,10 +13,10 @@ test:
 	./mvnw test
 
 test-lb1:
-	./mvnw -q -pl lb1 test
+	./mvnw -q -pl lb1 -am test
 
 test-lb2:
-	./mvnw -q -pl lb2 test
+	./mvnw -q -pl lb2 -am test
 
 test-lb3:
 	./mvnw -q -pl lb3 -am test
@@ -37,13 +37,13 @@ test-all: test
 
 run:
 	@case "$(LAB)" in \
-	   lb1) ./mvnw -q -pl lb1 -am compile && ./mvnw -q -pl lb1 org.codehaus.mojo:exec-maven-plugin:3.6.3:java -Dexec.mainClass=com.lpnu.alg_lb1.Main ;; \
-	   lb2) ./mvnw -q -pl lb2 -am compile && ./mvnw -q -pl lb2 org.codehaus.mojo:exec-maven-plugin:3.6.3:java -Dexec.mainClass=com.lpnu.alg_lb2.Main ;; \
-	   lb3) ./mvnw -q -pl lb3 -am compile && ./mvnw -q -pl lb3 org.codehaus.mojo:exec-maven-plugin:3.6.3:java -Dexec.mainClass=com.lpnu.alg_lb3.Main ;; \
-	   lb4) ./mvnw -q -pl lb4 -am compile && ./mvnw -q -pl lb4 org.codehaus.mojo:exec-maven-plugin:3.6.3:java -Dexec.mainClass=com.lpnu.lb4.ui.Main ;; \
-	   lb5) ./mvnw -q -pl lb5 -am compile && ./mvnw -q -pl lb5 org.codehaus.mojo:exec-maven-plugin:3.6.3:java -Dexec.mainClass=com.lpnu.lb5.ui.Main ;; \
-	   lb6) ./mvnw -q -pl lb6 -am compile && ./mvnw -q -pl lb6 org.codehaus.mojo:exec-maven-plugin:3.6.3:java -Dexec.mainClass=com.lpnu.lb6.ui.Main ;; \
-	   lb7) ./mvnw -q -pl lb7 -am compile && ./mvnw -q -pl lb7 org.codehaus.mojo:exec-maven-plugin:3.6.3:java -Dexec.mainClass=com.lpnu.lb7.ui.Main ;; \
+	   lb1) ./mvnw -q -pl lb1 -am -DskipTests install && ./mvnw -q -pl lb1 org.codehaus.mojo:exec-maven-plugin:3.6.3:java -Dexec.mainClass=com.lpnu.alg_lb1.Main ;; \
+	   lb2) ./mvnw -q -pl lb2 -am -DskipTests install && ./mvnw -q -pl lb2 org.codehaus.mojo:exec-maven-plugin:3.6.3:java -Dexec.mainClass=com.lpnu.alg_lb2.Main ;; \
+	   lb3) ./mvnw -q -pl lb3 -am -DskipTests install && ./mvnw -q -pl lb3 org.codehaus.mojo:exec-maven-plugin:3.6.3:java -Dexec.mainClass=com.lpnu.alg_lb3.Main ;; \
+	   lb4) ./mvnw -q -pl lb4 -am -DskipTests install && ./mvnw -q -pl lb4 org.codehaus.mojo:exec-maven-plugin:3.6.3:java -Dexec.mainClass=com.lpnu.lb4.ui.Main ;; \
+	   lb5) ./mvnw -q -pl lb5 -am -DskipTests install && ./mvnw -q -pl lb5 org.codehaus.mojo:exec-maven-plugin:3.6.3:java -Dexec.mainClass=com.lpnu.lb5.ui.Main ;; \
+	   lb6) ./mvnw -q -pl lb6 -am -DskipTests install && ./mvnw -q -pl lb6 org.codehaus.mojo:exec-maven-plugin:3.6.3:java -Dexec.mainClass=com.lpnu.lb6.ui.Main ;; \
+	   lb7) ./mvnw -q -pl lb7 -am -DskipTests install && ./mvnw -q -pl lb7 org.codehaus.mojo:exec-maven-plugin:3.6.3:java -Dexec.mainClass=com.lpnu.lb7.ui.Main ;; \
 	   *) echo "Unsupported LAB=$(LAB). Use lb1 through lb7."; exit 1 ;; \
 	esac
 

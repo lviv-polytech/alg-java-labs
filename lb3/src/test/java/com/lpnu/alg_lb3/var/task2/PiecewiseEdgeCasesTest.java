@@ -1,6 +1,7 @@
 package com.lpnu.alg_lb3.var.task2;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.math.BigDecimal;
 import org.junit.jupiter.api.Test;
@@ -34,14 +35,12 @@ class PiecewiseEdgeCasesTest {
   }
 
   @Test
-  void secondCase_computes_quadratic_without_division() {
-    // For Variant 17, case 2 is F = x^2 - cx (no division)
+  void thirdCase_divide_by_zero_in_denominator_a_minus_c() {
     var a = BigDecimal.valueOf(5);
     var b = BigDecimal.valueOf(2);
     var c = BigDecimal.valueOf(5);
-    var x = BigDecimal.valueOf(5); // x + 10 > 0 and b == 0
+    var x = BigDecimal.valueOf(0); // falls into third case
 
-    var res = fn.evaluate(a, b, c, x);
-    assertEquals(BigDecimal.ZERO, res); // 5^2 - 5*5 = 0
+    assertThrows(ArithmeticException.class, () -> fn.evaluate(a, b, c, x));
   }
 }
