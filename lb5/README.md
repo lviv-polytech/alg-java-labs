@@ -3,6 +3,7 @@
 ## 1. Overview
 This laboratory module implements modular decomposition, recurrent Taylor series tabulation, piecewise functions, and recursion for **Variant 17**:
 
+- **Task 5.0 (`task0`):** Isolated introductory calculation `calculate(x, y) = (x^2 + y) / 2.0` separating computational logic from console I/O for standalone unit testing with delta assertion.
 - **Task 5.1 (`task1`):** Composite rational expression evaluation using a reusable helper function $h(x, y, z) = \frac{x^2 + y^2 + z^2}{x + y + z}$:
   $$f(a, b) = \frac{h(a, b, 1) + h(1, a, b)}{1 + h(a^2 + b^2, 1, 0)}$$
 - **Task 5.2 (`task2`):** Tabulation of $\ln(x)$ via its Taylor series on $[x_{\text{start}}, x_{\text{end}}]$ with step $dx$ and accuracy $\varepsilon$:
@@ -71,6 +72,15 @@ sequenceDiagram
 ### Class Diagram: Module `lb5` Structure
 ```mermaid
 classDiagram
+    class IntroCalculationService {
+        +calculate(x: double, y: double) double
+    }
+
+    class MathService {
+        +sum(a: int, b: int) int
+        +calculate(x: double, y: double) double
+    }
+
     class Variant17Math {
         +nextLnTaylorTerm(x: double, n: int, previousTerm: double) double$
         +computeLnTaylorSeries(x: double, eps: double) TaylorResult$

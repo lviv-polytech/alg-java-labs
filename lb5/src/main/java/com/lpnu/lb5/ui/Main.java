@@ -1,6 +1,7 @@
 package com.lpnu.lb5.ui;
 
 import com.lpnu.common.SafeScanner;
+import com.lpnu.lb5.ui.task0.Task0Runner;
 import com.lpnu.lb5.ui.task1.Task1Runner;
 import com.lpnu.lb5.ui.task2.Task2Runner;
 import com.lpnu.lb5.ui.task3.Task3Runner;
@@ -12,34 +13,41 @@ public class Main {
     SafeScanner scanner = new SafeScanner();
 
     System.out.println("====== Lab 5 ======");
+    System.out.println("0. Task 0 (Task 5.0: Introductory calculation: (x^2 + y)/2)");
     System.out.println("1. Task 1 (Custom Math Functions composite expression)");
     System.out.println("2. Task 2 (Taylor Series Modular Functions)");
     System.out.println("3. Task 3 (Piecewise Functions and Recurrent Loops)");
     System.out.println("4. Task 4 (Summation using Recursion 5 ways)");
     System.out.println("5. Task 5 (Geometric Progression Recursion Depth)");
-    System.out.println("0. Exit");
+    System.out.println("6. Exit (or type 'exit')");
 
     while (true) {
       System.out.print("> Select task: ");
       String choice = scanner.nextLineOrNull();
-      if (choice == null || choice.equals("0")) {
+      if (choice == null
+          || choice.equalsIgnoreCase("exit")
+          || choice.equalsIgnoreCase("q")
+          || choice.equals("6")) {
         System.out.println("Exiting...");
         break;
       }
 
-      if (choice.equals("1")) {
+      if (choice.equals("0") || choice.equals("5.0")) {
+        new Task0Runner().run();
+        break;
+      } else if (choice.equals("1") || choice.equals("5.1")) {
         new Task1Runner().run();
         break;
-      } else if (choice.equals("2")) {
+      } else if (choice.equals("2") || choice.equals("5.2")) {
         new Task2Runner().run();
         break;
-      } else if (choice.equals("3")) {
+      } else if (choice.equals("3") || choice.equals("5.3")) {
         new Task3Runner().run();
         break;
-      } else if (choice.equals("4")) {
+      } else if (choice.equals("4") || choice.equals("5.4")) {
         new Task4Runner().run();
         break;
-      } else if (choice.equals("5")) {
+      } else if (choice.equals("5") || choice.equals("5.5")) {
         new Task5Runner().run();
         break;
       } else {

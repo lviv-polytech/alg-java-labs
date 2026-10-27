@@ -17,4 +17,12 @@ class MathServiceTest {
     // Assert
     Assertions.assertEquals(expectedResult, actualResult, "The sum of 10 and 5 should be 15.");
   }
+
+  @Test
+  void testCalculate() {
+    MathService mathService = new MathService();
+    double expected = 5.0;
+    double actual = mathService.calculate(2.0, 6.0);
+    Assertions.assertEquals(expected, actual, 0.00001);
+  }
 }
